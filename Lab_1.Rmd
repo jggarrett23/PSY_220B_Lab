@@ -3,6 +3,7 @@ title: "Lab 1"
 author: "Jordan Garrett"
 date: "1/4/2022"
 output:
+  slidy_presentation: default
   ioslides_presentation:
     transition: faster
   beamer_presentation: default
@@ -24,6 +25,10 @@ slides > slide {
 
 
 ```{r setup, include=FALSE}
+
+if (!require(kableExtra)) install.packages('kableExtra')
+if (!require(plotly)) install.packages('plotly')
+
 library(knitr)
 library(cowplot)
 library(tidyverse)
