@@ -1,0 +1,123 @@
+---
+title: "Lab 2"
+output: html_notebook
+---
+
+# R basics
+
+## Variables
+### Character
+```{r}
+my_character <- 'hello'
+```
+### Numeric
+```{r}
+my_numeric <- 3
+```
+### Logical
+```{r}
+my_logical <- c(T,F)
+```
+
+Check types 
+```{r}
+typeof(my_character)
+typeof(my_numeric)
+typeof(my_logical)
+```
+
+
+## Dataframes
+### Creating a data frame
+```{r}
+my_df <- data.frame('a'=c(1,2,3),
+                    'b'=c('Jack','Jill','Tony'),
+                    'c'=c(T,F,T))
+
+
+```
+### Indexing
++ Single Column
+```{r}
+my_df$a
+```
++ Single Row
+```{r}
+my_df[1,]
+```
++ Multiple Columns and Rows
+```{r}
+my_df[c(1,2), c(1,3)]
+```
+## For Loop
+```{r}
+my_vector <- c(1,2,3,4)
+
+for (value in my_vector){
+  new_value <- value+2
+  
+  print(new_value)
+}
+```
+## Function
+```{r}
+my.first_function <- function(x){
+  f_x <- 3*x + 2
+  
+  return(f_x)
+}
+
+
+my.first_function(5)
+```
+## Apply Function
+R has a built in special function known as `(l/s/t/m)apply`. This allows you to apply another function to a vector, list, or data frame of values. For instance, we can apply `my.first_function` to a vector:
+```{r}
+my_vector.2 <- c(5,-2,3,12,1,0)
+
+
+sapply(my_vector.2, my.first_function)
+```
+Variations of the apply function differ in how they output results. `lapply` outputs results in a list, while `sapply` outputs them in a vector. Keep in mind that you can also use a for loop to accomplish the same procedure as the apply function, as well as combine the two together.
+
+# Matrix Alegbra in R
+
+```{r}
+x <- 5 # create a scalar
+
+v <- c(1,2,3,4) # create a vector
+
+A <- matrix(c(3, 2, 1,
+                     7, 5, 4,
+                     8, 3, 6), ncol=3, byrow=T) # create a matrix
+
+v
+A
+```
+
+When creating a matrix, you need to specify either the number of rows or columns that are in the matrix. Here we specify that there are 3 columns using `ncol=3`.
+Notice the `byrow=T` flag in the matrix command. By default, R creates matrices by columns. This can be a little confusing, especially if you are used to creating matrices in other languages such as MATLAB. Setting the flag byrow equal to True overrides the default behavior.
+
+Lets start doing some algebra!
+
+```{r}
+x + v # scalar plus a vector
+```
+```{r}
+m <- c(12,-10,0,2) # create another vector
+
+m + v # vector addition
+```
+```{r}
+B <- matrix(c(5, 10, 9,
+              -3, 0, 0,
+              1, 18, 6,
+              0, -2, 14), ncol=3, byrow=T) # create a 4 x 3 matrix
+
+v + B
+```
+
+
+
+To multiply matrices and vectors, you have to use the notation %*%
+

@@ -1,0 +1,423 @@
+---
+title: "Lab 1"
+author: "Jordan Garrett"
+date: "1/4/2022"
+output:
+  ioslides_presentation:
+    transition: faster
+  slidy_presentation: default
+  beamer_presentation: default
+---
+```{css, echo = FALSE}
+.indent {
+ margin-left: 30px;
+}
+
+h2 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+}
+
+slides > slide {
+  color: black;
+}
+```
+
+
+```{r setup, include=FALSE}
+
+if (!require(kableExtra)) install.packages('kableExtra')
+if (!require(plotly)) install.packages('plotly')
+
+library(knitr)
+library(cowplot)
+library(tidyverse)
+library(MASS)
+library(mvtnorm)
+library(plotly)
+library(kableExtra)
+
+opts_chunk$set(echo = TRUE, warning=F, message=F)
+```
+
+## About me {.build}
+```{r photos, echo=FALSE}
+p1 <- ggdraw() + draw_image('images/bike_eeg.jpeg', scale=1)
+p2 <- ggdraw() + draw_image('images/cucomonga.jpeg', scale=0.8)
+plot_grid(p1,p2)
+```
+<div class='notes'>
+A little bit about me. As you heard on Tuesday, I am a fourth year graduate student in 
+the Psych & Brain Sciences department. 
+(click)
+My research focuses on exercise and how it influences cognition. I specifically look at how the neural mechanisms of working memory and attention are modulated as a result of an acute bout of aerobic exercise. 
+
+A fun fact about me is that I love hiking! This is a photo from a while back when I hiked Cucomonga peak down in the San Bernadino mountains. Unfortunately, I haven't been able to hike as much during grad school but I am trying to change that with the hopefully few years I have left.
+
+I also am very passionate about statistics, especially the Bayesian approach, machine learning, and AI. One of my hobbies is trying to use reinforcement learning methods to train video game AI to perform optimally. I say hobby because I'm not that good at it.
+</div>
+
+## Purpose of labs
+- Facilitate learning theoretical concepts covered in lecture
+- Answer questions about homework
+- Review for midterms and the final
+- Implement statistical analyses from lecture in RStudio
+
+<div class='notes'>
+
+Okay, now the purpose of lab is to help you all develop a deeper understanding of the theory that you learn in lecture. So please please please bring ask questions that you have about the lecture or homework. Its likely that other people have the same question as you, and it also gives Tommy and I insights on what we need to improve on. Hopefully we are only going to be remote for these first two weeks, but regardless I want to try and foster a lot of participation. 
+
+We will also review for the midterms and final in lab, and obviously a primary purpose is to use R to implement the statistical methods you learn in lecture. 
+
+</div>
+
+## Lab 1 Outline
+- Cover preliminary statistics and probability concepts
+- Intro to R and setup
+
+<div class='notes'>
+
+Here is an outline of what we will cover today. A majority of the time will be spent discussing some basic concepts, and then at the end I want to make sure everyone is setup with the latest version of R and RStudio.
+
+</div>
+
+
+## Random Variable
+> - A variable that takes on specific values with specific probabilities.
+> - Measurable functions that map outcomes of a stochastic process to a measurable space.
+> - Typically denoted by a capital letter (e.g., *X*, *Y*, *Z*).
+> - Denote the outcome of a coin flip as *Y*
+>   - *Y* = 1 if Heads, else *Y* = 0
+>   - *p*(*Y*=1) = 0.5
+
+<div class='notes'>
+
+Alright lets get started by discussing random variables. As you all know, the occurrence of events out in the world, whether it be us staying remote for the whole quarter or me TAing this class well, have a degree of uncertainty. If they didn't, then we wouldn't even need statistics which we use to quantify that uncertainty. 
+
+(click)
+
+We call these occurrences random variables, because they are variables that take on specific values with specific probabilities. 
+
+(click)
+
+More formally, random variables are measurable functions that map outcomes of a stochastic process to a measurable space. 
+
+(click)
+
+Typically they are denoted by a capital letter. 
+
+(click)
+
+For instance, we can denote the outcome of a fair coin flip as this capital Y, and map it to a measurable space of 1 and 0 if the coin lands heads or tails. The probability of either outcome occurring is 0.5. 
+
+</div>
+
+
+## Probability distribution {.build}
+- Probability **mass** function (PMF)
+   - Assigns probabilities to individual values of a *discrete* random variable
+   
+```{r coin_plot, echo=FALSE}
+data.frame(outcome=c('0','1'), 'p'=c(0.5,0.5)) %>% 
+  ggplot(aes(x=outcome, y=p)) + 
+  geom_bar(stat='identity', fill='blue', alpha=0.3, color='black') + 
+  ylim(0,1) + 
+  labs(y=expression(paste(italic(p),'(', italic('Y'),')')), x='', title='Coin Flip PMF') + 
+  theme_classic() + 
+  theme(plot.title = element_text(hjust=0.5, size = 16),
+        axis.text = element_text(size=12), 
+        axis.title = element_text(size=14))
+```
+
+<div class='notes'>
+
+Now, a random variable can be represented by a probability distribution. In the case that the variable is discrete, this takes the form of probability mass function that assigns probabilities to all possible values.
+
+(click)
+
+Shown here is the probability mass function of the fair coin. As you can see, both outcomes have a probability of 0.5.
+
+</div>
+
+## Probablity distribution {.build}
+- Probability **density** function (PDF)
+  - Similar to a PMF, but instead specifies the probability that a *continuous* variable takes on a range of values.
+
+<div style='float: left; width: 50%;'>
+
+```{r pdf, echo=F, out.width='150%'}
+snd <- ggplot(data=data.frame('x'=c(-3,3)), aes(x)) + 
+  stat_function(fun=dnorm, n=101, args = list(mean=0, sd=1)) + 
+  labs(x='X', y=expression(paste(italic('p'), '(', italic('X'), ')'))) + 
+  theme_classic()
+snd
+```
+</div>
+
+<div style='float: right; width: 50%;'>
+<center>
+\
+\
+\
+Normal Distribution Notation\
+\
+*X* ~ *N*($\mu$,$\sigma^2$)
+</center>
+</div>
+
+<div class='notes'>
+
+Most of the variables we work with in research are continuous, in which case the probability mass function becomes a probability density function or PDF. 
+
+(click)
+
+For instance, we could be looking at the distribution of hours undergraduate students spend studying. It likely would take on that standard bell-shaped curve we are so used to seeing, or in other words have a normal probability density function. 
+
+(click)
+
+Throughout this presentation I'm going to write some things in statistical notation. This may appear frightening at first, but my goal is to expose you all to it now so that you don't feel blind sided if you decide to take more advanced statistics course in other departments. Here, this notation is read as the random variable X has a normal probability distribution with a mean of mu and variance of sigma squared.
+
+</div>
+
+
+## Expected value and Variance {.build}
+- The expected value of a random variable *Y* is denoted as *E*(*Y*).
+  - Probability weighted average of all possible values.
+
+```{r expectation, class.source="indent"}
+y <- c(70,80,85,90,100)
+p.y <- c(0.18,0.34,0.35,0.11,0.02)
+
+E.y <- sum(y*p.y)
+E.y 
+```
+
+- Variance
+  - A measure of how disperse all possible values of a random variable are from the expected value (i.e. population or sample mean)
+
+<div class='notes'>
+
+The next concepts I want to touch on are expected values and variance. 
+
+(click)
+
+The expected value of a random variable is the probability weighted average of all possible values. This is denoted as an E around the random variable, such as E parentheses Y. 
+
+(click)
+
+So lets go ahead and see this in action. No need to run or save this R code. Say we have a random variable Y that takes on the following values with their corresponding probabilities. If we that the sum of their product, we get the expected value.
+
+(click)
+
+Next is variance, which is a measure of a random variable's dispersion around its expected value.
+
+With these two concepts, we can fully characterize a random variable i.e. its probability distribution.
+
+</div>
+
+
+## Multivariate Distributions {.build}
+### PDF $\rightarrow$ **Joint Probability Density**\
+> - For the random variables *X* and *Y*, the joint pdf characterizes the probability that each *X* and *Y* takes on a set of values.
+
+```{r joint_pdf, echo=F}
+sigma <- matrix(c(1,0,0,1), ncol=2)
+x <- mvrnorm(5000, c(0,0), sigma)
+dens <- dmvnorm(x, mean=c(0,0), sigma=sigma)
+
+plot_ly(x=~x[,1], y=~x[,2], z=~dens, type='scatter3d', 
+        mode='markers',
+        marker=list(color = ~dens, colorscale = 'RdBu', showscale=F)) %>%
+  
+  layout(scene=list(xaxis=list(title='X'), yaxis=list(title='Y'), 
+                    zaxis=list(title=list(text='p(X,Y)'))))
+```
+
+<div class='notes'>
+We can extend the previous concepts to situations in which we have multiple random variables that are represented by a multivariate distribution. 
+
+(click)
+
+In the multivariate case, the pdf extends to the joint probability function, which characterizes the probability that X and Y take on a set of values.
+
+(click)
+
+For visualization, here is the joint pdf of two normally distributed random variables that are uncorrelated.
+
+</div>
+
+## Multivariate Distributions 
+### Variance $\rightarrow$ **Covariance**\
+>   - Measure of how much two random variables vary together.
+> - Formally, is the expected value of each random variable's deviation from its respective mean.
+\
+\
+\
+<center>
+cov(*X*,*Y*) = *E*[(*X* - *E*[*X*])(*Y* - *E*[*Y*])]
+</center>
+> - Typically represented as a matrix.
+
+<div class='notes'>
+
+Additionally, variance becomes covariance when you have multiple random variables
+
+(click)
+
+and is is a measure of how much two variables vary together. Formally, it is the expected value of each random variable's deviation from its respective mean. 
+
+(click)
+
+Typically when you work with covariance it will be represented as a matrix.
+
+Tommy is a big fan of these and they are integral to ANOVAs, so I'm sure we will be discussing them further in the future.
+</div>
+
+## Marginal Distribution {.build}
+- Probability distribution of an outcome for one random variable in the presence of all other outcomes for another random variable
+```{r xy_table, echo=F}
+xy_table <- matrix(c(4/32, 2/32, 1/32, 1/32,
+                     3/32, 6/32, 3/32, 3/32,
+                     9/32, 0, 0 , 0), ncol=4, byrow=T)
+
+xy_table <- cbind(xy_table,rowSums(xy_table))
+xy_table <- rbind(xy_table,c(colSums(xy_table[,c(1:4)]),1))
+
+row.names(xy_table) <- c('y~1~','y~2~','y~3~','*p*~*X*~(*x*~i~)')
+colnames(xy_table) <- c('x~1~','x~2~','x~3~','x~4~', '*p*~*Y*~(*y*~i~)')
+
+
+xy_table[1:3,5] <- cell_spec(xy_table[0:3,5], color='red', bold=T, font_size = 22)
+xy_table[4,1:4] <- cell_spec(xy_table[4,1:4], color='blue', bold=T, font_size = 22)
+
+kbl(xy_table, digits=2, escape=F) %>% 
+  kable_paper() %>% 
+  row_spec(0, bold=F, font_size = 20) %>% 
+  row_spec(1:4, font_size=20) %>% 
+  column_spec(1, bold=T)
+```
+
+<div class='notes'>
+
+Sometimes when you have a multivariate distribution, you may want to recover information about just one of the variables. This is known as the marginal distribution. 
+
+(click)
+
+To compute the marginal distribution, you sum or integrate the joint probability of one random variable across all levels of another random variable. For instance in this table, we have the joint probabilities of X and Y. If we sum the probabilities in each column, we will get the marginal distribution of X. 
+
+This is a foundational principle if you ever get into Bayesian statistics.
+</div>
+
+## Pearson correlation & Statistical independence
+- Pearson correlation coefficient $\rho$ measures the linear relationship between two random variables
+\
+- Two random variables are statistically independent if the realization of one does not affect the outcome of the other.
+
+<div class='notes'>
+
+I'm sure you're all familiar with correlation, but just incase is a measure of the linear relationship between two random variables. 
+
+Random variables can also be statistically independent, meaning that the realization of one is not impacted by the outcome of the other.
+
+</div>
+
+
+## Likelihood
+> - Throughout this course we are going to use statistical models (e.g., regression, ANOVA) to describe patterns of variability in random variables.
+> - These models have *parameters* (e.g., mean of a sampling distribution)
+> - A **likelihood** function is the joint probability of observed data as a function of parameters in a statistical model. 
+
+<div class='notes'>
+
+The last thing I want to touch on is the concept of likelihood functions or likelihood.
+
+(click)
+
+Throughout this course and your research you are going to use statistical models to describe patterns of variability in random variables.
+
+(click)
+
+These models have parameters, which are tuneable values that influence how the model describes the data-generation process.
+
+(click)
+
+A likelihood function is the joint probability of observed data as a function of these parameters. 
+
+But, likelihood is not the same as probability. That might be confusing so lets look at the distinction graphically.
+
+</div>
+
+
+## {.build}
+<div style='float: top; height: 50%;'>
+<center>
+```{r prob_dist_area, echo=F, out.width='65%'}
+df.x <- data.frame(x=seq(-3,3,0.001))
+df.x$d <- dnorm(df.x$x)
+
+ggplot(data=df.x, aes(x,d)) + 
+  geom_line() + 
+  labs(x='x', y=expression(paste(italic('p'), '(', italic('X'), ')')), title='Probability') + 
+  theme_classic() +
+  geom_area(mapping=aes(x=ifelse(x > 1, x, 0)), fill='red', alpha=0.5) + 
+  ylim(0,max(df.x$d)) + 
+  annotate("text", x=1.51, y=dnorm(1)+0.04, 
+           label=expression(paste('p(', italic(X),' > 1 | ', mu, '=0, ', sigma, '=1)',
+                                  ' = 0.1587')), size = 6) + 
+  theme(plot.title=element_text(hjust=0.5, size = 20))
+```
+</center>
+</div>
+
+<div style='float: bottom; height: 50%;'>
+<center>
+```{r likelihood, echo=F, out.width='65%'}
+ggplot(data=df.x, aes(x,d)) + 
+  geom_line() + 
+  labs(x='x', y=expression(paste(italic('p'), '(', italic('X'), ')')), title='Likelihood') + 
+  theme_classic() + 
+  theme(plot.title=element_text(hjust=0.5, size = 20)) + 
+  geom_segment(x=1, y=0, xend=1, yend=dnorm(1), 
+               linetype='dashed', color='red', size=1.1) + 
+  geom_point(mapping=(aes(x=1, y = dnorm(1))), size=8, shape=4, stroke=2, color='red') + 
+  annotate("text",x=.905, y=dnorm(1)+.05, 
+           label=expression(paste(italic('L'), '(', mu, '=0, ', sigma, '=1',
+                                  '| ', italic('X'), '=1', ') = ',
+                                  '0.2420')), size = 6)
+```
+</center>
+
+<div class='notes>
+
+(click)
+
+Probability reflects a random variable taking on a range of values given a distribution. For instance, say we had a standard normal distribution and wanted to know the probability of our random variable X being greater than one. We could compute the area underneath the curve to the right of 1, which corresponds to the probability. 
+
+(click)
+
+In contrast, when we look at likelihood we have already observed a value of 1 for X. Instead, we want to know how likely the distribution parameters mean and variance are equal to 0 and 1. This likelihood corresponds to the height of the distribution, or the density estimate.
+
+</div>
+
+# R
+
+## Programming Tips
+- Google is your best friend!
+- More than a single way to skin a cat (code).
+- Learn more than one language.
+- Have fun!
+
+<div class='notes'>
+Before we get into setting up R, I wanted to share a few programming tips.
+
+1. Google is your best friend. Getting good at programming isn't memorizing all the functions. Really its just know what keywords to type into Google to find snippets of code that you need.
+
+2. There's more than one way to code! Some ways are more efficient than others, but we aren't doing computationally heavy analyses in this course so no need to worry about that. Code that you see from me is not dogma, so if you have another way of doing it and getting the correct output more power to you!
+
+3. I encourage you all to learn more than one programming language, preferably Python. Not only is it good if you want to go into data science, but it also helps you think abstractly about approaching code.
+
+4. And of course have fun! There will be pain, sweat, and tears. But that doesn't mean it cannot be fun
+
+Alright any questions?
+</div>
+
