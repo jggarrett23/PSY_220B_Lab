@@ -109,6 +109,12 @@ A
 When creating a matrix, you need to specify either the number of rows or columns that are in the matrix. Here we specify that there are 3 columns using `ncol=3`.
 Notice the `byrow=T` flag in the matrix command. By default, R creates matrices by columns. This can be a little confusing, especially if you are used to creating matrices in other languages such as MATLAB. Setting the flag byrow equal to True overrides the default behavior.
 
+To transpose a matrix, use the function `t()`:
+```{r}
+t(A)
+```
+
+
 Lets start doing some algebra!
 
 ```{r}
