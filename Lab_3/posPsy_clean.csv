@@ -1,0 +1,991 @@
+"id","intervention","sex","age","educ","income","occasion","elapsed_days","ahiTotal","cesdTotal"
+"1","4","M",35,"Postgrad","above","Pre",0,63,14
+"2","1","F",59,"Less than Year 12","below","Pre",0,73,7
+"3","4","F",51,"Bachelors","above","Pre",0,77,3
+"4","3","F",50,"Postgrad","average","Pre",0,60,31
+"5","2","M",58,"Postgrad","average","Pre",0,41,27
+"6","1","F",31,"Postgrad","below","Pre",0,62,25
+"7","3","F",44,"Postgrad","average","Pre",0,67,2
+"8","2","F",57,"Bachelors","average","Pre",0,59,30
+"9","1","F",36,"Bachelors","above","Pre",0,48,25
+"10","2","F",45,"Bachelors","above","Pre",0,58,21
+"11","2","F",56,"Postgrad","below","Pre",0,62,19
+"12","2","F",46,"Bachelors","above","Pre",0,45,17
+"13","4","F",34,"Postgrad","above","Pre",0,51,22
+"14","4","F",41,"Less than Year 12","average","Pre",0,51,36
+"15","4","M",27,"Year 12","average","Pre",0,66,12
+"16","4","F",31,"Less than Year 12","below","Pre",0,67,4
+"17","3","F",44,"Bachelors","average","Pre",0,72,8
+"18","2","F",40,"Postgrad","average","Pre",0,63,16
+"19","1","F",37,"Vocational training","below","Pre",0,73,13
+"20","3","F",21,"Bachelors","below","Pre",0,56,23
+"21","3","F",42,"Bachelors","average","Pre",0,55,39
+"22","4","F",29,"Bachelors","average","Pre",0,81,10
+"23","1","F",22,"Bachelors","below","Pre",0,77,12
+"24","3","F",51,"Bachelors","above","Pre",0,54,29
+"25","3","F",46,"Bachelors","above","Pre",0,76,17
+"26","4","F",35,"Postgrad","above","Pre",0,85,0
+"27","4","F",34,"Bachelors","above","Pre",0,56,20
+"28","1","F",62,"Bachelors","below","Pre",0,63,13
+"29","2","F",45,"Less than Year 12","average","Pre",0,52,33
+"30","3","M",50,"Less than Year 12","above","Pre",0,85,9
+"31","1","F",58,"Bachelors","average","Pre",0,56,12
+"32","1","F",45,"Postgrad","above","Pre",0,58,12
+"33","4","F",40,"Postgrad","above","Pre",0,92,7
+"34","1","F",43,"Postgrad","above","Pre",0,73,17
+"35","3","F",29,"Bachelors","below","Pre",0,84,12
+"36","1","F",45,"Bachelors","below","Pre",0,57,17
+"37","2","F",47,"Postgrad","average","Pre",0,66,11
+"38","3","F",50,"Bachelors","above","Pre",0,65,35
+"39","2","F",49,"Bachelors","below","Pre",0,84,7
+"40","2","F",53,"Bachelors","above","Pre",0,67,10
+"41","4","F",50,"Year 12","average","Pre",0,66,19
+"42","2","F",46,"Bachelors","average","Pre",0,82,6
+"43","3","F",24,"Bachelors","above","Pre",0,68,20
+"44","2","M",36,"Bachelors","above","Pre",0,59,28
+"45","2","F",36,"Bachelors","average","Pre",0,65,17
+"46","4","F",35,"Vocational training","average","Pre",0,75,2
+"47","4","F",32,"Vocational training","average","Pre",0,77,11
+"48","2","F",42,"Vocational training","below","Pre",0,83,7
+"49","1","F",36,"Year 12","below","Pre",0,55,34
+"50","3","F",39,"Postgrad","average","Pre",0,89,2
+"51","2","F",83,"Year 12","average","Pre",0,90,5
+"52","3","M",52,"Postgrad","above","Pre",0,44,34
+"53","1","F",40,"Vocational training","below","Pre",0,76,5
+"54","4","F",39,"Less than Year 12","above","Pre",0,73,10
+"55","3","F",27,"Vocational training","average","Pre",0,58,26
+"56","4","F",56,"Vocational training","average","Pre",0,56,13
+"57","4","F",45,"Bachelors","below","Pre",0,53,38
+"58","3","F",60,"Postgrad","average","Pre",0,81,9
+"59","1","F",50,"Postgrad","average","Pre",0,75,7
+"60","3","F",61,"Bachelors","average","Pre",0,85,20
+"61","4","F",43,"Bachelors","average","Pre",0,79,16
+"62","2","F",27,"Postgrad","above","Pre",0,70,12
+"63","1","M",45,"Vocational training","average","Pre",0,78,7
+"64","1","F",39,"Vocational training","average","Pre",0,61,27
+"65","2","F",50,"Bachelors","below","Pre",0,57,25
+"66","2","F",51,"Postgrad","above","Pre",0,79,11
+"67","1","F",65,"Bachelors","average","Pre",0,59,12
+"68","3","F",28,"Vocational training","below","Pre",0,59,36
+"69","2","F",24,"Bachelors","average","Pre",0,79,13
+"70","2","F",45,"Bachelors","above","Pre",0,88,6
+"71","1","F",45,"Vocational training","above","Pre",0,85,3
+"72","4","F",37,"Postgrad","above","Pre",0,59,23
+"73","2","F",50,"Postgrad","below","Pre",0,69,23
+"74","2","F",54,"Bachelors","average","Pre",0,62,17
+"75","2","F",41,"Year 12","below","Pre",0,53,19
+"76","1","F",48,"Vocational training","average","Pre",0,95,21
+"77","1","F",37,"Postgrad","average","Pre",0,74,15
+"78","3","F",28,"Bachelors","average","Pre",0,59,18
+"79","4","F",54,"Vocational training","average","Pre",0,83,2
+"80","2","F",33,"Bachelors","above","Pre",0,73,22
+"81","1","F",47,"Bachelors","above","Pre",0,67,9
+"82","3","F",39,"Postgrad","average","Pre",0,58,31
+"83","4","F",71,"Year 12","below","Pre",0,72,4
+"84","2","F",54,"Vocational training","average","Pre",0,71,11
+"85","2","F",38,"Postgrad","above","Pre",0,54,30
+"86","2","F",58,"Bachelors","average","Pre",0,78,7
+"87","4","F",53,"Postgrad","average","Pre",0,80,5
+"88","1","M",59,"Vocational training","average","Pre",0,66,4
+"89","4","F",33,"Postgrad","average","Pre",0,76,8
+"90","2","F",35,"Bachelors","average","Pre",0,56,26
+"91","2","F",43,"Bachelors","average","Pre",0,71,8
+"92","3","F",60,"Postgrad","above","Pre",0,75,5
+"93","3","F",68,"Less than Year 12","average","Pre",0,84,12
+"94","3","F",24,"Bachelors","below","Pre",0,63,37
+"95","2","F",56,"Bachelors","below","Pre",0,79,2
+"96","1","F",58,"Postgrad","below","Pre",0,53,15
+"97","1","F",52,"Postgrad","above","Pre",0,70,13
+"98","2","F",65,"Vocational training","below","Pre",0,83,4
+"99","4","F",25,"Postgrad","average","Pre",0,78,4
+"100","1","F",32,"Bachelors","average","Pre",0,67,4
+"101","4","F",60,"Postgrad","above","Pre",0,86,2
+"102","3","F",61,"Postgrad","average","Pre",0,72,11
+"103","1","F",42,"Less than Year 12","above","Pre",0,62,15
+"104","1","F",51,"Postgrad","above","Pre",0,88,7
+"105","1","M",57,"Less than Year 12","average","Pre",0,58,38
+"106","2","F",28,"Bachelors","above","Pre",0,64,10
+"107","1","F",44,"Bachelors","above","Pre",0,106,1
+"108","4","F",59,"Postgrad","below","Pre",0,49,24
+"109","4","F",35,"Bachelors","average","Pre",0,62,20
+"110","1","F",30,"Postgrad","below","Pre",0,66,14
+"111","4","F",63,"Postgrad","average","Pre",0,71,11
+"112","4","M",52,"Bachelors","below","Pre",0,67,10
+"113","1","M",42,"Bachelors","below","Pre",0,44,48
+"114","1","F",71,"Bachelors","below","Pre",0,84,1
+"115","1","M",52,"Postgrad","above","Pre",0,78,11
+"116","3","F",55,"Postgrad","below","Pre",0,91,1
+"117","3","F",51,"Bachelors","above","Pre",0,73,7
+"118","2","F",61,"Bachelors","average","Pre",0,58,24
+"119","3","F",38,"Postgrad","average","Pre",0,69,10
+"120","3","F",51,"Postgrad","average","Pre",0,57,10
+"121","3","F",26,"Vocational training","below","Pre",0,64,25
+"122","1","F",23,"Postgrad","average","Pre",0,85,6
+"123","1","F",56,"Bachelors","below","Pre",0,51,15
+"124","4","F",62,"Year 12","below","Pre",0,66,12
+"125","2","F",56,"Bachelors","above","Pre",0,54,36
+"126","2","F",40,"Postgrad","average","Pre",0,66,29
+"127","1","F",42,"Vocational training","average","Pre",0,68,6
+"128","4","F",46,"Postgrad","above","Pre",0,71,14
+"129","3","F",60,"Postgrad","above","Pre",0,70,5
+"130","4","M",21,"Less than Year 12","below","Pre",0,66,15
+"131","2","F",48,"Postgrad","average","Pre",0,72,23
+"132","2","F",33,"Postgrad","above","Pre",0,80,16
+"133","1","F",26,"Postgrad","average","Pre",0,67,8
+"134","1","F",52,"Bachelors","below","Pre",0,66,10
+"135","4","F",59,"Postgrad","above","Pre",0,95,2
+"136","3","F",52,"Postgrad","above","Pre",0,92,0
+"137","2","M",47,"Postgrad","above","Pre",0,78,9
+"138","1","F",23,"Year 12","below","Pre",0,62,22
+"139","2","F",51,"Bachelors","below","Pre",0,81,4
+"140","3","M",31,"Vocational training","below","Pre",0,84,4
+"141","2","M",67,"Postgrad","average","Pre",0,76,7
+"142","4","F",42,"Postgrad","below","Pre",0,72,13
+"143","2","M",48,"Year 12","average","Pre",0,79,3
+"144","1","F",57,"Postgrad","average","Pre",0,59,18
+"145","4","M",56,"Bachelors","below","Pre",0,84,15
+"146","4","F",36,"Vocational training","average","Pre",0,66,26
+"147","2","F",36,"Year 12","below","Pre",0,61,14
+"148","3","F",34,"Bachelors","below","Pre",0,81,5
+"149","1","M",59,"Bachelors","average","Pre",0,97,5
+"150","3","F",44,"Vocational training","below","Pre",0,54,40
+"151","3","F",50,"Bachelors","average","Pre",0,82,16
+"152","3","F",31,"Bachelors","average","Pre",0,70,22
+"153","4","M",48,"Postgrad","average","Pre",0,58,15
+"154","4","F",27,"Bachelors","average","Pre",0,60,12
+"155","3","M",71,"Bachelors","below","Pre",0,76,17
+"156","4","F",26,"Vocational training","average","Pre",0,85,0
+"157","1","M",41,"Postgrad","below","Pre",0,70,7
+"158","4","F",34,"Postgrad","above","Pre",0,90,3
+"159","4","F",44,"Bachelors","below","Pre",0,59,27
+"160","4","F",40,"Postgrad","above","Pre",0,86,11
+"161","3","M",43,"Postgrad","above","Pre",0,62,33
+"162","3","F",37,"Vocational training","average","Pre",0,41,41
+"163","3","F",40,"Postgrad","above","Pre",0,52,27
+"164","2","F",30,"Bachelors","average","Pre",0,68,15
+"165","4","F",30,"Vocational training","average","Pre",0,49,38
+"166","4","F",56,"Postgrad","above","Pre",0,70,15
+"167","2","F",34,"Postgrad","above","Pre",0,78,5
+"168","2","F",42,"Year 12","below","Pre",0,66,27
+"169","1","F",52,"Postgrad","above","Pre",0,46,36
+"170","2","F",50,"Bachelors","above","Pre",0,76,7
+"171","1","F",64,"Bachelors","average","Pre",0,92,5
+"172","3","F",49,"Postgrad","average","Pre",0,83,6
+"173","3","M",48,"Postgrad","above","Pre",0,72,26
+"174","3","F",61,"Vocational training","average","Pre",0,67,6
+"175","1","F",46,"Vocational training","average","Pre",0,69,24
+"176","3","F",29,"Bachelors","average","Pre",0,60,9
+"177","1","F",53,"Bachelors","above","Pre",0,56,33
+"178","1","F",31,"Postgrad","average","Pre",0,78,5
+"179","3","F",44,"Bachelors","average","Pre",0,66,12
+"180","1","F",57,"Vocational training","below","Pre",0,85,2
+"181","3","F",45,"Bachelors","below","Pre",0,90,8
+"182","3","F",55,"Postgrad","above","Pre",0,84,6
+"183","4","F",50,"Postgrad","average","Pre",0,76,14
+"184","3","F",60,"Postgrad","average","Pre",0,76,16
+"185","3","M",41,"Bachelors","below","Pre",0,40,47
+"186","4","F",46,"Less than Year 12","average","Pre",0,86,10
+"187","1","F",52,"Postgrad","average","Pre",0,81,1
+"188","2","F",59,"Bachelors","average","Pre",0,98,5
+"189","2","F",47,"Postgrad","below","Pre",0,76,3
+"190","2","F",57,"Postgrad","below","Pre",0,68,21
+"191","2","F",53,"Postgrad","below","Pre",0,50,34
+"192","4","F",63,"Postgrad","above","Pre",0,62,30
+"193","2","M",25,"Postgrad","average","Pre",0,102,4
+"194","2","F",41,"Less than Year 12","average","Pre",0,57,23
+"195","3","F",37,"Bachelors","below","Pre",0,73,11
+"196","3","F",44,"Postgrad","average","Pre",0,84,16
+"197","4","F",29,"Postgrad","average","Pre",0,93,11
+"198","3","F",52,"Postgrad","above","Pre",0,68,4
+"199","1","F",28,"Bachelors","above","Pre",0,71,15
+"200","1","F",58,"Postgrad","above","Pre",0,85,6
+"201","2","F",51,"Postgrad","average","Pre",0,75,3
+"202","4","F",45,"Less than Year 12","average","Pre",0,69,17
+"203","1","F",54,"Postgrad","below","Pre",0,56,30
+"204","4","M",32,"Postgrad","below","Pre",0,65,14
+"205","1","M",41,"Bachelors","above","Pre",0,61,28
+"206","2","F",33,"Bachelors","average","Pre",0,74,16
+"207","3","F",50,"Postgrad","above","Pre",0,53,31
+"208","4","F",33,"Vocational training","average","Pre",0,64,24
+"209","4","F",32,"Vocational training","average","Pre",0,67,13
+"210","1","M",28,"Bachelors","average","Pre",0,72,11
+"211","3","F",50,"Bachelors","below","Pre",0,52,24
+"212","3","F",43,"Year 12","average","Pre",0,50,18
+"213","2","F",37,"Postgrad","above","Pre",0,59,15
+"214","3","F",35,"Bachelors","average","Pre",0,77,9
+"215","4","F",75,"Vocational training","average","Pre",0,76,1
+"216","2","F",30,"Bachelors","average","Pre",0,67,14
+"217","4","M",46,"Year 12","above","Pre",0,87,10
+"218","3","F",29,"Bachelors","average","Pre",0,78,8
+"219","1","F",46,"Postgrad","average","Pre",0,60,25
+"220","3","F",49,"Bachelors","above","Pre",0,44,20
+"221","3","F",51,"Postgrad","average","Pre",0,92,0
+"222","1","F",58,"Postgrad","average","Pre",0,83,3
+"223","4","F",24,"Postgrad","below","Pre",0,75,15
+"224","1","F",58,"Bachelors","above","Pre",0,76,2
+"225","2","F",36,"Postgrad","below","Pre",0,67,12
+"226","2","F",42,"Bachelors","below","Pre",0,59,18
+"227","4","F",46,"Postgrad","above","Pre",0,73,4
+"228","2","M",54,"Postgrad","above","Pre",0,73,38
+"229","4","F",48,"Vocational training","average","Pre",0,81,0
+"230","2","F",21,"Year 12","below","Pre",0,51,39
+"231","2","F",45,"Vocational training","below","Pre",0,62,13
+"232","1","F",43,"Postgrad","average","Pre",0,64,10
+"233","3","F",47,"Bachelors","average","Pre",0,77,10
+"234","3","M",33,"Postgrad","above","Pre",0,92,1
+"235","2","M",18,"Year 12","below","Pre",0,83,4
+"236","3","F",27,"Bachelors","average","Pre",0,70,1
+"237","4","M",33,"Vocational training","above","Pre",0,69,9
+"238","4","F",30,"Postgrad","average","Pre",0,100,4
+"239","1","F",49,"Postgrad","average","Pre",0,68,7
+"240","3","F",49,"Year 12","above","Pre",0,86,6
+"241","4","F",40,"Postgrad","above","Pre",0,76,11
+"242","4","F",30,"Postgrad","below","Pre",0,83,7
+"243","4","M",26,"Bachelors","average","Pre",0,90,19
+"244","2","F",77,"Vocational training","average","Pre",0,64,33
+"245","4","F",29,"Year 12","below","Pre",0,77,0
+"246","3","F",52,"Postgrad","average","Pre",0,69,17
+"247","1","F",23,"Bachelors","below","Pre",0,55,53
+"248","2","F",29,"Bachelors","below","Pre",0,82,5
+"249","1","F",30,"Bachelors","above","Pre",0,87,4
+"250","4","F",60,"Postgrad","above","Pre",0,79,8
+"251","4","M",31,"Postgrad","average","Pre",0,70,11
+"252","1","F",27,"Postgrad","below","Pre",0,100,8
+"253","2","M",64,"Postgrad","average","Pre",0,52,15
+"254","3","F",27,"Postgrad","average","Pre",0,82,7
+"255","4","F",34,"Vocational training","average","Pre",0,64,9
+"256","2","F",53,"Vocational training","average","Pre",0,52,29
+"257","1","F",62,"Postgrad","average","Pre",0,45,34
+"258","3","F",36,"Bachelors","average","Pre",0,63,25
+"259","4","F",54,"Bachelors","above","Pre",0,77,6
+"260","2","F",63,"Year 12","average","Pre",0,50,32
+"261","3","M",55,"Bachelors","above","Pre",0,82,7
+"262","2","F",24,"Bachelors","average","Pre",0,63,17
+"263","1","M",32,"Postgrad","average","Pre",0,71,13
+"264","1","F",27,"Bachelors","average","Pre",0,44,31
+"265","2","F",52,"Less than Year 12","above","Pre",0,82,8
+"266","4","F",36,"Vocational training","average","Pre",0,66,10
+"267","4","F",19,"Year 12","below","Pre",0,35,41
+"268","2","F",36,"Postgrad","above","Pre",0,90,10
+"269","3","M",23,"Bachelors","below","Pre",0,66,22
+"270","4","F",30,"Postgrad","above","Pre",0,76,10
+"271","1","F",47,"Postgrad","above","Pre",0,52,31
+"272","1","F",55,"Bachelors","average","Pre",0,75,3
+"273","3","F",55,"Postgrad","average","Pre",0,76,1
+"274","1","F",28,"Postgrad","above","Pre",0,66,13
+"275","3","F",34,"Postgrad","above","Pre",0,82,4
+"276","1","F",37,"Postgrad","average","Pre",0,59,24
+"277","3","F",36,"Year 12","average","Pre",0,54,30
+"278","4","F",56,"Vocational training","average","Pre",0,58,17
+"279","2","F",58,"Vocational training","average","Pre",0,52,23
+"280","2","F",37,"Postgrad","above","Pre",0,80,14
+"281","4","M",67,"Bachelors","average","Pre",0,69,4
+"282","1","F",43,"Year 12","average","Pre",0,66,11
+"283","2","F",39,"Bachelors","average","Pre",0,91,8
+"284","3","M",19,"Bachelors","below","Pre",0,82,15
+"285","1","F",45,"Postgrad","above","Pre",0,67,14
+"286","3","F",41,"Bachelors","average","Pre",0,79,16
+"287","2","F",43,"Bachelors","average","Pre",0,64,30
+"288","3","M",26,"Postgrad","below","Pre",0,68,15
+"289","1","F",49,"Bachelors","below","Pre",0,37,35
+"290","4","F",30,"Postgrad","above","Pre",0,79,11
+"291","2","F",39,"Postgrad","above","Pre",0,80,9
+"292","4","F",47,"Bachelors","average","Pre",0,50,30
+"293","2","M",52,"Bachelors","above","Pre",0,47,18
+"294","3","F",59,"Postgrad","average","Pre",0,70,7
+"295","1","F",28,"Bachelors","average","Pre",0,65,6
+"1","4","M",35,"Postgrad","above","Post",11.77273148,73,6
+"2","1","F",59,"Less than Year 12","below","Post",8.017523148,89,10
+"4","3","F",50,"Postgrad","average","Post",7.419456019,67,31
+"5","2","M",58,"Postgrad","average","Post",7.74880787,41,32
+"8","2","F",57,"Bachelors","average","Post",8.800763889,45,45
+"11","2","F",56,"Postgrad","below","Post",8.904861111,59,19
+"12","2","F",46,"Bachelors","above","Post",7.106354167,49,31
+"13","4","F",34,"Postgrad","above","Post",9.977349537,64,16
+"14","4","F",41,"Less than Year 12","average","Post",9.083252315,48,30
+"18","2","F",40,"Postgrad","average","Post",7.177893519,58,16
+"19","1","F",37,"Vocational training","below","Post",9.193842593,67,16
+"22","4","F",29,"Bachelors","average","Post",10.06118056,80,2
+"24","3","F",51,"Bachelors","above","Post",12.08564815,52,22
+"27","4","F",34,"Bachelors","above","Post",10.96391204,55,12
+"28","1","F",62,"Bachelors","below","Post",12.99465278,89,2
+"31","1","F",58,"Bachelors","average","Post",7.833472222,64,13
+"33","4","F",40,"Postgrad","above","Post",18.92810185,91,5
+"36","1","F",45,"Bachelors","below","Post",12.01717593,58,10
+"37","2","F",47,"Postgrad","average","Post",10.14009259,74,10
+"38","3","F",50,"Bachelors","above","Post",10.93599537,61,21
+"40","2","F",53,"Bachelors","above","Post",9.050740741,79,6
+"41","4","F",50,"Year 12","average","Post",9.051689815,66,10
+"42","2","F",46,"Bachelors","average","Post",7.757650463,61,35
+"43","3","F",24,"Bachelors","above","Post",7.561828704,74,18
+"44","2","M",36,"Bachelors","above","Post",7.916481482,71,22
+"45","2","F",36,"Bachelors","average","Post",10.86533565,75,7
+"47","4","F",32,"Vocational training","average","Post",7.046863426,75,15
+"48","2","F",42,"Vocational training","below","Post",7.721111111,77,2
+"50","3","F",39,"Postgrad","average","Post",10.97976852,94,1
+"52","3","M",52,"Postgrad","above","Post",9.696840278,47,22
+"53","1","F",40,"Vocational training","below","Post",7.064097222,74,5
+"56","4","F",56,"Vocational training","average","Post",8.346770833,58,9
+"57","4","F",45,"Bachelors","below","Post",15.80666667,73,13
+"61","4","F",43,"Bachelors","average","Post",7.5703125,76,31
+"62","2","F",27,"Postgrad","above","Post",7.877592593,78,6
+"64","1","F",39,"Vocational training","average","Post",10.22708333,61,22
+"65","2","F",50,"Bachelors","below","Post",10.19859954,62,18
+"66","2","F",51,"Postgrad","above","Post",8.025208333,91,3
+"67","1","F",65,"Bachelors","average","Post",8.025011574,64,13
+"72","4","F",37,"Postgrad","above","Post",7.137962963,59,20
+"74","2","F",54,"Bachelors","average","Post",7.007638889,74,14
+"77","1","F",37,"Postgrad","average","Post",10.99633102,86,4
+"78","3","F",28,"Bachelors","average","Post",13.12354167,55,20
+"79","4","F",54,"Vocational training","average","Post",8.982233796,81,3
+"80","2","F",33,"Bachelors","above","Post",8.773946759,70,21
+"83","4","F",71,"Year 12","below","Post",7.123506945,71,7
+"84","2","F",54,"Vocational training","average","Post",9.020694444,65,10
+"92","3","F",60,"Postgrad","above","Post",9.769965278,76,7
+"95","2","F",56,"Bachelors","below","Post",9.136053241,85,1
+"98","2","F",65,"Vocational training","below","Post",14.1578588,86,0
+"100","1","F",32,"Bachelors","average","Post",7.734872685,72,4
+"101","4","F",60,"Postgrad","above","Post",9.010393519,86,8
+"108","4","F",59,"Postgrad","below","Post",7.077476852,48,25
+"111","4","F",63,"Postgrad","average","Post",8.247060185,79,4
+"113","1","M",42,"Bachelors","below","Post",11.49678241,48,47
+"114","1","F",71,"Bachelors","below","Post",7.013159722,91,3
+"118","2","F",61,"Bachelors","average","Post",12.07563657,58,16
+"119","3","F",38,"Postgrad","average","Post",9.92244213,77,4
+"121","3","F",26,"Vocational training","below","Post",13.99947917,71,11
+"124","4","F",62,"Year 12","below","Post",7.30193287,74,3
+"125","2","F",56,"Bachelors","above","Post",8.341238426,58,26
+"126","2","F",40,"Postgrad","average","Post",9.075150463,66,27
+"127","1","F",42,"Vocational training","average","Post",7.348541667,74,0
+"128","4","F",46,"Postgrad","above","Post",8.107534722,83,3
+"130","4","M",21,"Less than Year 12","below","Post",8.059444444,65,10
+"131","2","F",48,"Postgrad","average","Post",7.370104167,67,19
+"132","2","F",33,"Postgrad","above","Post",7.077037037,76,16
+"134","1","F",52,"Bachelors","below","Post",9.100555556,73,6
+"136","3","F",52,"Postgrad","above","Post",7.268414352,88,0
+"137","2","M",47,"Postgrad","above","Post",7.908472222,82,5
+"139","2","F",51,"Bachelors","below","Post",8.913252315,82,3
+"141","2","M",67,"Postgrad","average","Post",19.7562963,70,3
+"143","2","M",48,"Year 12","average","Post",9.749872685,79,2
+"144","1","F",57,"Postgrad","average","Post",0,63,8
+"145","4","M",56,"Bachelors","below","Post",15.00305556,81,5
+"147","2","F",36,"Year 12","below","Post",9.281666667,80,12
+"153","4","M",48,"Postgrad","average","Post",10.27013889,60,20
+"155","3","M",71,"Bachelors","below","Post",7.833159722,78,14
+"158","4","F",34,"Postgrad","above","Post",7.221516204,90,3
+"159","4","F",44,"Bachelors","below","Post",7.249872685,71,12
+"164","2","F",30,"Bachelors","average","Post",9.773055556,79,11
+"166","4","F",56,"Postgrad","above","Post",9.267858796,65,21
+"167","2","F",34,"Postgrad","above","Post",7.195960648,77,5
+"168","2","F",42,"Year 12","below","Post",11.38883102,73,15
+"169","1","F",52,"Postgrad","above","Post",9.743981482,48,39
+"175","1","F",46,"Vocational training","average","Post",8.691886574,62,33
+"177","1","F",53,"Bachelors","above","Post",8.003958333,53,43
+"178","1","F",31,"Postgrad","average","Post",10.0884838,77,5
+"179","3","F",44,"Bachelors","average","Post",10.3371412,59,39
+"182","3","F",55,"Postgrad","above","Post",8.916006944,80,10
+"183","4","F",50,"Postgrad","average","Post",8.186006945,72,19
+"184","3","F",60,"Postgrad","average","Post",7.640300926,88,9
+"186","4","F",46,"Less than Year 12","average","Post",8.062199074,77,4
+"187","1","F",52,"Postgrad","average","Post",7.780196759,79,0
+"188","2","F",59,"Bachelors","average","Post",7.659930556,103,2
+"189","2","F",47,"Postgrad","below","Post",11.0740625,70,5
+"190","2","F",57,"Postgrad","below","Post",9.789803241,68,26
+"191","2","F",53,"Postgrad","below","Post",10.93868056,55,32
+"192","4","F",63,"Postgrad","above","Post",17.76868056,75,6
+"194","2","F",41,"Less than Year 12","average","Post",8.018020833,60,10
+"195","3","F",37,"Bachelors","below","Post",9.480509259,76,9
+"199","1","F",28,"Bachelors","above","Post",13.15006944,81,3
+"201","2","F",51,"Postgrad","average","Post",10.0930787,80,5
+"203","1","F",54,"Postgrad","below","Post",8.879027778,78,21
+"204","4","M",32,"Postgrad","below","Post",7.518634259,58,16
+"205","1","M",41,"Bachelors","above","Post",7.271157407,47,44
+"206","2","F",33,"Bachelors","average","Post",8.368460648,80,12
+"207","3","F",50,"Postgrad","above","Post",7.091527778,56,28
+"211","3","F",50,"Bachelors","below","Post",10.80929398,64,16
+"214","3","F",35,"Bachelors","average","Post",7.966469907,82,6
+"215","4","F",75,"Vocational training","average","Post",8.731261574,81,11
+"217","4","M",46,"Year 12","above","Post",7.750289352,67,23
+"219","1","F",46,"Postgrad","average","Post",8.984525463,54,29
+"221","3","F",51,"Postgrad","average","Post",13.2721875,90,1
+"222","1","F",58,"Postgrad","average","Post",10.18002315,87,6
+"226","2","F",42,"Bachelors","below","Post",24.94443287,72,7
+"227","4","F",46,"Postgrad","above","Post",8.026967593,89,7
+"229","4","F",48,"Vocational training","average","Post",8.023321759,84,4
+"230","2","F",21,"Year 12","below","Post",10.99144676,58,39
+"235","2","M",18,"Year 12","below","Post",7.592650463,92,3
+"237","4","M",33,"Vocational training","above","Post",9.167604167,70,9
+"238","4","F",30,"Postgrad","average","Post",11.97987269,90,5
+"239","1","F",49,"Postgrad","average","Post",7.090393519,78,7
+"240","3","F",49,"Year 12","above","Post",7.16244213,95,0
+"241","4","F",40,"Postgrad","above","Post",9.97494213,81,6
+"242","4","F",30,"Postgrad","below","Post",8.827199074,91,5
+"243","4","M",26,"Bachelors","average","Post",7.68650463,99,4
+"244","2","F",77,"Vocational training","average","Post",7.238877315,70,37
+"245","4","F",29,"Year 12","below","Post",9.114988426,80,4
+"248","2","F",29,"Bachelors","below","Post",13.7703588,85,10
+"249","1","F",30,"Bachelors","above","Post",16.97027778,86,2
+"251","4","M",31,"Postgrad","average","Post",10.00600694,72,9
+"254","3","F",27,"Postgrad","average","Post",7.489872685,89,7
+"256","2","F",53,"Vocational training","average","Post",7.529490741,56,25
+"257","1","F",62,"Postgrad","average","Post",9.461840278,52,39
+"258","3","F",36,"Bachelors","average","Post",10.29112269,77,7
+"259","4","F",54,"Bachelors","above","Post",7.698993056,77,3
+"265","2","F",52,"Less than Year 12","above","Post",8.01744213,79,8
+"270","4","F",30,"Postgrad","above","Post",9.738784722,77,8
+"273","3","F",55,"Postgrad","average","Post",7.152141204,80,0
+"275","3","F",34,"Postgrad","above","Post",7.17662037,92,4
+"276","1","F",37,"Postgrad","average","Post",8.143831019,68,8
+"278","4","F",56,"Vocational training","average","Post",7.113506944,80,1
+"281","4","M",67,"Bachelors","average","Post",7.519131944,76,1
+"282","1","F",43,"Year 12","average","Post",8.00849537,63,17
+"283","2","F",39,"Bachelors","average","Post",7.094814815,85,12
+"287","2","F",43,"Bachelors","average","Post",10.0080787,76,9
+"292","4","F",47,"Bachelors","average","Post",9.940717593,70,6
+"2","1","F",59,"Less than Year 12","below","1 week",14.30408565,89,13
+"3","4","F",51,"Bachelors","above","1 week",16.4275463,85,5
+"5","2","M",58,"Postgrad","average","1 week",14.75921296,47,26
+"6","1","F",31,"Postgrad","below","1 week",14.26005787,67,34
+"8","2","F",57,"Bachelors","average","1 week",21.91927083,38,55
+"11","2","F",56,"Postgrad","below","1 week",14.76061343,59,25
+"12","2","F",46,"Bachelors","above","1 week",18.86436343,54,2
+"13","4","F",34,"Postgrad","above","1 week",14.07665509,63,14
+"14","4","F",41,"Less than Year 12","average","1 week",15.26239583,51,29
+"22","4","F",29,"Bachelors","average","1 week",14.20155093,81,2
+"24","3","F",51,"Bachelors","above","1 week",20.02950231,54,33
+"27","4","F",34,"Bachelors","above","1 week",14.33109954,52,21
+"28","1","F",62,"Bachelors","below","1 week",19.94915509,87,0
+"34","1","F",43,"Postgrad","above","1 week",16.86108796,85,12
+"36","1","F",45,"Bachelors","below","1 week",14.63887731,58,11
+"37","2","F",47,"Postgrad","average","1 week",16.35561343,73,10
+"38","3","F",50,"Bachelors","above","1 week",17.74167824,64,18
+"39","2","F",49,"Bachelors","below","1 week",14.72121528,91,1
+"40","2","F",53,"Bachelors","above","1 week",21.82690972,83,6
+"41","4","F",50,"Year 12","average","1 week",14.19349537,70,9
+"42","2","F",46,"Bachelors","average","1 week",17.71289352,79,12
+"44","2","M",36,"Bachelors","above","1 week",15.86711806,75,17
+"47","4","F",32,"Vocational training","average","1 week",14.13236111,73,16
+"48","2","F",42,"Vocational training","below","1 week",14.61244213,89,5
+"50","3","F",39,"Postgrad","average","1 week",15.0433912,90,0
+"51","2","F",83,"Year 12","average","1 week",15.76417824,90,4
+"52","3","M",52,"Postgrad","above","1 week",16.69555556,48,22
+"53","1","F",40,"Vocational training","below","1 week",14.77819444,76,10
+"55","3","F",27,"Vocational training","average","1 week",14.01861111,48,34
+"57","4","F",45,"Bachelors","below","1 week",21.73366898,68,9
+"61","4","F",43,"Bachelors","average","1 week",14.57700231,72,14
+"62","2","F",27,"Postgrad","above","1 week",14.40451389,75,6
+"64","1","F",39,"Vocational training","average","1 week",18.99569444,66,20
+"65","2","F",50,"Bachelors","below","1 week",17.75668981,65,20
+"66","2","F",51,"Postgrad","above","1 week",14.42134259,83,4
+"67","1","F",65,"Bachelors","average","1 week",15.85141204,65,10
+"74","2","F",54,"Bachelors","average","1 week",14.025625,76,13
+"75","2","F",41,"Year 12","below","1 week",14.06574074,52,4
+"76","1","F",48,"Vocational training","average","1 week",15.02194444,78,22
+"77","1","F",37,"Postgrad","average","1 week",27.2668287,78,12
+"79","4","F",54,"Vocational training","average","1 week",17.3459838,82,4
+"81","1","F",47,"Bachelors","above","1 week",14.27469907,65,12
+"83","4","F",71,"Year 12","below","1 week",14.24428241,73,5
+"89","4","F",33,"Postgrad","average","1 week",24.00398148,80,4
+"92","3","F",60,"Postgrad","above","1 week",15.39510417,77,4
+"93","3","F",68,"Less than Year 12","average","1 week",15.76483796,82,3
+"95","2","F",56,"Bachelors","below","1 week",16.13450231,72,10
+"96","1","F",58,"Postgrad","below","1 week",21.06834491,53,12
+"98","2","F",65,"Vocational training","below","1 week",20.85773148,87,0
+"107","1","F",44,"Bachelors","above","1 week",14.3337963,108,0
+"111","4","F",63,"Postgrad","average","1 week",14.30368056,81,12
+"113","1","M",42,"Bachelors","below","1 week",17.49237269,38,50
+"114","1","F",71,"Bachelors","below","1 week",15.40902778,84,0
+"117","3","F",51,"Bachelors","above","1 week",14.17611111,72,5
+"118","2","F",61,"Bachelors","average","1 week",16.02310185,55,21
+"119","3","F",38,"Postgrad","average","1 week",16.92354167,79,3
+"122","1","F",23,"Postgrad","average","1 week",14.76956019,96,0
+"124","4","F",62,"Year 12","below","1 week",15.28253472,74,3
+"125","2","F",56,"Bachelors","above","1 week",15.14820602,58,28
+"126","2","F",40,"Postgrad","average","1 week",18.16202546,62,16
+"127","1","F",42,"Vocational training","average","1 week",14.39244213,73,2
+"128","4","F",46,"Postgrad","above","1 week",25.12524306,89,1
+"129","3","F",60,"Postgrad","above","1 week",15.68068287,81,3
+"130","4","M",21,"Less than Year 12","below","1 week",15.19181713,66,18
+"131","2","F",48,"Postgrad","average","1 week",14.35883102,72,8
+"132","2","F",33,"Postgrad","above","1 week",14.82269676,70,14
+"134","1","F",52,"Bachelors","below","1 week",17.14144676,71,3
+"135","4","F",59,"Postgrad","above","1 week",14.01685185,96,2
+"136","3","F",52,"Postgrad","above","1 week",14.11819444,86,2
+"137","2","M",47,"Postgrad","above","1 week",14.14415509,79,5
+"138","1","F",23,"Year 12","below","1 week",15.05686343,69,5
+"139","2","F",51,"Bachelors","below","1 week",19.12763889,83,5
+"141","2","M",67,"Postgrad","average","1 week",21.99606481,72,3
+"143","2","M",48,"Year 12","average","1 week",15.20614583,76,1
+"144","1","F",57,"Postgrad","average","1 week",7.096446759,69,5
+"147","2","F",36,"Year 12","below","1 week",17.9309838,76,18
+"150","3","F",44,"Vocational training","below","1 week",16.86197917,60,40
+"153","4","M",48,"Postgrad","average","1 week",14.01215278,56,14
+"158","4","F",34,"Postgrad","above","1 week",14.20109954,93,3
+"160","4","F",40,"Postgrad","above","1 week",15.04684028,88,6
+"161","3","M",43,"Postgrad","above","1 week",17.93541667,61,24
+"162","3","F",37,"Vocational training","average","1 week",14.19180556,34,49
+"164","2","F",30,"Bachelors","average","1 week",16.71418981,81,9
+"167","2","F",34,"Postgrad","above","1 week",14.09131944,83,6
+"169","1","F",52,"Postgrad","above","1 week",19.15883102,45,38
+"173","3","M",48,"Postgrad","above","1 week",14.1843287,73,32
+"177","1","F",53,"Bachelors","above","1 week",15.99290509,56,32
+"178","1","F",31,"Postgrad","average","1 week",17.20388889,78,4
+"179","3","F",44,"Bachelors","average","1 week",14.28407407,70,15
+"181","3","F",45,"Bachelors","below","1 week",18.02260417,93,3
+"182","3","F",55,"Postgrad","above","1 week",15.9783912,73,14
+"184","3","F",60,"Postgrad","average","1 week",17.02049769,94,0
+"185","3","M",41,"Bachelors","below","1 week",18.03895833,38,47
+"186","4","F",46,"Less than Year 12","average","1 week",14.95159722,75,26
+"187","1","F",52,"Postgrad","average","1 week",14.77268519,74,0
+"188","2","F",59,"Bachelors","average","1 week",21.83517361,105,1
+"189","2","F",47,"Postgrad","below","1 week",18.06806713,70,2
+"190","2","F",57,"Postgrad","below","1 week",17.01175926,70,24
+"191","2","F",53,"Postgrad","below","1 week",22.66494213,51,36
+"193","2","M",25,"Postgrad","average","1 week",31.00612269,96,1
+"194","2","F",41,"Less than Year 12","average","1 week",15.0409375,70,7
+"195","3","F",37,"Bachelors","below","1 week",18.20135417,76,10
+"197","4","F",29,"Postgrad","average","1 week",14.34871528,92,11
+"199","1","F",28,"Bachelors","above","1 week",17.04763889,77,10
+"201","2","F",51,"Postgrad","average","1 week",23.39112269,72,3
+"202","4","F",45,"Less than Year 12","average","1 week",26.72128472,74,13
+"203","1","F",54,"Postgrad","below","1 week",16.08844907,61,9
+"205","1","M",41,"Bachelors","above","1 week",14.8562037,49,45
+"206","2","F",33,"Bachelors","average","1 week",17.48287037,77,14
+"207","3","F",50,"Postgrad","above","1 week",14.2212963,55,31
+"211","3","F",50,"Bachelors","below","1 week",17.80670139,60,23
+"213","2","F",37,"Postgrad","above","1 week",18.14423611,72,9
+"214","3","F",35,"Bachelors","average","1 week",14.10059028,83,4
+"215","4","F",75,"Vocational training","average","1 week",15.02951389,89,1
+"217","4","M",46,"Year 12","above","1 week",14.5247338,72,20
+"222","1","F",58,"Postgrad","average","1 week",14.72633102,83,2
+"224","1","F",58,"Bachelors","above","1 week",14.0862037,80,1
+"225","2","F",36,"Postgrad","below","1 week",17.00958333,80,9
+"227","4","F",46,"Postgrad","above","1 week",15.99699074,89,2
+"229","4","F",48,"Vocational training","average","1 week",14.32282407,79,1
+"231","2","F",45,"Vocational training","below","1 week",15.12765046,57,11
+"232","1","F",43,"Postgrad","average","1 week",48.83969907,79,4
+"234","3","M",33,"Postgrad","above","1 week",17.38533565,97,0
+"235","2","M",18,"Year 12","below","1 week",14.67217593,91,1
+"236","3","F",27,"Bachelors","average","1 week",15.90324074,68,8
+"237","4","M",33,"Vocational training","above","1 week",15.97896991,75,2
+"238","4","F",30,"Postgrad","average","1 week",14.50604167,90,6
+"239","1","F",49,"Postgrad","average","1 week",14.07730324,94,2
+"241","4","F",40,"Postgrad","above","1 week",14.03539352,83,4
+"243","4","M",26,"Bachelors","average","1 week",14.17987269,87,11
+"244","2","F",77,"Vocational training","average","1 week",16.90028935,71,16
+"245","4","F",29,"Year 12","below","1 week",18.9881713,74,0
+"246","3","F",52,"Postgrad","average","1 week",14.79347222,76,1
+"249","1","F",30,"Bachelors","above","1 week",23.95820602,82,6
+"251","4","M",31,"Postgrad","average","1 week",17.1066088,68,25
+"254","3","F",27,"Postgrad","average","1 week",14.47371528,88,8
+"255","4","F",34,"Vocational training","average","1 week",14.2368287,80,9
+"257","1","F",62,"Postgrad","average","1 week",14.67627315,49,43
+"259","4","F",54,"Bachelors","above","1 week",14.69990741,78,2
+"261","3","M",55,"Bachelors","above","1 week",15.87241898,84,7
+"264","1","F",27,"Bachelors","average","1 week",14.0097338,46,20
+"265","2","F",52,"Less than Year 12","above","1 week",15.16466435,83,4
+"266","4","F",36,"Vocational training","average","1 week",15.001875,81,7
+"267","4","F",19,"Year 12","below","1 week",14.89403935,43,36
+"273","3","F",55,"Postgrad","average","1 week",14.16825231,82,0
+"274","1","F",28,"Postgrad","above","1 week",14.22628472,70,5
+"275","3","F",34,"Postgrad","above","1 week",27.92763889,91,5
+"276","1","F",37,"Postgrad","average","1 week",23.0178588,64,29
+"278","4","F",56,"Vocational training","average","1 week",14.1721875,87,1
+"279","2","F",58,"Vocational training","average","1 week",14.01077546,75,15
+"281","4","M",67,"Bachelors","average","1 week",15.33892361,75,1
+"282","1","F",43,"Year 12","average","1 week",22.22789352,66,12
+"283","2","F",39,"Bachelors","average","1 week",14.0705787,91,12
+"287","2","F",43,"Bachelors","average","1 week",14.9850463,72,16
+"288","3","M",26,"Postgrad","below","1 week",18.24082176,71,26
+"289","1","F",49,"Bachelors","below","1 week",15.77462963,45,21
+"2","1","F",59,"Less than Year 12","below","1 month",31.98356481,93,8
+"4","3","F",50,"Postgrad","average","1 month",41.38689815,56,41
+"5","2","M",58,"Postgrad","average","1 month",30.09101852,47,19
+"6","1","F",31,"Postgrad","below","1 month",32.27515046,66,23
+"8","2","F",57,"Bachelors","average","1 month",50.60011574,48,34
+"11","2","F",56,"Postgrad","below","1 month",33.9850463,62,20
+"12","2","F",46,"Bachelors","above","1 month",34.04939815,44,20
+"14","4","F",41,"Less than Year 12","average","1 month",31.90173611,49,32
+"19","1","F",37,"Vocational training","below","1 month",44.88908565,71,15
+"24","3","F",51,"Bachelors","above","1 month",35.64840278,54,19
+"27","4","F",34,"Bachelors","above","1 month",34.9933912,57,14
+"28","1","F",62,"Bachelors","below","1 month",37.00121528,92,0
+"33","4","F",40,"Postgrad","above","1 month",31.82420139,91,1
+"34","1","F",43,"Postgrad","above","1 month",32.01979167,63,36
+"37","2","F",47,"Postgrad","average","1 month",32.54052083,79,11
+"38","3","F",50,"Bachelors","above","1 month",38.72707176,64,14
+"40","2","F",53,"Bachelors","above","1 month",32.81483796,85,3
+"41","4","F",50,"Year 12","average","1 month",32.96704861,69,5
+"42","2","F",46,"Bachelors","average","1 month",47.89212963,95,0
+"43","3","F",24,"Bachelors","above","1 month",31.65049769,79,15
+"44","2","M",36,"Bachelors","above","1 month",32.07722222,75,13
+"47","4","F",32,"Vocational training","average","1 month",31.15133102,69,24
+"48","2","F",42,"Vocational training","below","1 month",32.66584491,54,21
+"50","3","F",39,"Postgrad","average","1 month",35.18034722,91,2
+"51","2","F",83,"Year 12","average","1 month",32.64459491,87,7
+"52","3","M",52,"Postgrad","above","1 month",31.75572917,53,22
+"57","4","F",45,"Bachelors","below","1 month",43.20663194,60,14
+"62","2","F",27,"Postgrad","above","1 month",31.82439815,75,9
+"65","2","F",50,"Bachelors","below","1 month",32.13864583,68,9
+"66","2","F",51,"Postgrad","above","1 month",41.15989583,83,12
+"67","1","F",65,"Bachelors","average","1 month",32.82203704,68,7
+"74","2","F",54,"Bachelors","average","1 month",31.02158565,88,9
+"75","2","F",41,"Year 12","below","1 month",32.00288194,78,4
+"76","1","F",48,"Vocational training","average","1 month",29.78813657,93,21
+"77","1","F",37,"Postgrad","average","1 month",32.18179398,83,14
+"79","4","F",54,"Vocational training","average","1 month",36.04178241,81,4
+"80","2","F",33,"Bachelors","above","1 month",32.9108912,62,16
+"83","4","F",71,"Year 12","below","1 month",31.2494213,75,3
+"89","4","F",33,"Postgrad","average","1 month",34.85201389,83,5
+"92","3","F",60,"Postgrad","above","1 month",31.52130787,73,4
+"95","2","F",56,"Bachelors","below","1 month",32.97357639,81,2
+"98","2","F",65,"Vocational training","below","1 month",37.92899306,77,0
+"101","4","F",60,"Postgrad","above","1 month",31.23162037,82,3
+"102","3","F",61,"Postgrad","average","1 month",32.88440972,81,8
+"109","4","F",35,"Bachelors","average","1 month",35.03109954,54,28
+"111","4","F",63,"Postgrad","average","1 month",33.22008102,79,4
+"114","1","F",71,"Bachelors","below","1 month",32.43055556,87,2
+"117","3","F",51,"Bachelors","above","1 month",31.08780093,71,3
+"118","2","F",61,"Bachelors","average","1 month",36.23337963,56,11
+"119","3","F",38,"Postgrad","average","1 month",32.92917824,81,3
+"121","3","F",26,"Vocational training","below","1 month",33.92486111,75,15
+"122","1","F",23,"Postgrad","average","1 month",31.70520833,95,3
+"124","4","F",62,"Year 12","below","1 month",33.17373843,77,1
+"125","2","F",56,"Bachelors","above","1 month",33.33534722,58,21
+"126","2","F",40,"Postgrad","average","1 month",33.50538194,59,24
+"127","1","F",42,"Vocational training","average","1 month",34.84395833,72,5
+"128","4","F",46,"Postgrad","above","1 month",31.92122685,91,0
+"130","4","M",21,"Less than Year 12","below","1 month",32.88581019,53,17
+"131","2","F",48,"Postgrad","average","1 month",36.27974537,70,10
+"132","2","F",33,"Postgrad","above","1 month",43.81451389,71,17
+"134","1","F",52,"Bachelors","below","1 month",33.04922454,74,4
+"135","4","F",59,"Postgrad","above","1 month",32.73833333,107,2
+"136","3","F",52,"Postgrad","above","1 month",31.30996528,85,0
+"137","2","M",47,"Postgrad","above","1 month",31.0583912,80,9
+"138","1","F",23,"Year 12","below","1 month",32.46427083,67,3
+"139","2","F",51,"Bachelors","below","1 month",38.78736111,60,20
+"141","2","M",67,"Postgrad","average","1 month",41.76540509,47,32
+"143","2","M",48,"Year 12","average","1 month",34.84820602,79,0
+"144","1","F",57,"Postgrad","average","1 month",24.73732639,73,6
+"150","3","F",44,"Vocational training","below","1 month",31.27938657,64,22
+"153","4","M",48,"Postgrad","average","1 month",31.01320602,60,14
+"156","4","F",26,"Vocational training","average","1 month",33.65680556,87,1
+"158","4","F",34,"Postgrad","above","1 month",34.75070602,95,1
+"160","4","F",40,"Postgrad","above","1 month",31.86546296,93,3
+"161","3","M",43,"Postgrad","above","1 month",31.32472222,74,11
+"162","3","F",37,"Vocational training","average","1 month",33.03383102,34,47
+"164","2","F",30,"Bachelors","average","1 month",35.02611111,82,10
+"167","2","F",34,"Postgrad","above","1 month",31.29087963,79,3
+"168","2","F",42,"Year 12","below","1 month",32.98956019,69,33
+"169","1","F",52,"Postgrad","above","1 month",34.16601852,51,48
+"173","3","M",48,"Postgrad","above","1 month",31.02516204,75,22
+"177","1","F",53,"Bachelors","above","1 month",33.72725694,60,19
+"178","1","F",31,"Postgrad","average","1 month",34.94311343,79,0
+"179","3","F",44,"Bachelors","average","1 month",32.17545139,68,8
+"182","3","F",55,"Postgrad","above","1 month",34.12451389,76,11
+"184","3","F",60,"Postgrad","average","1 month",31.66311343,93,2
+"185","3","M",41,"Bachelors","below","1 month",35.25614583,42,39
+"186","4","F",46,"Less than Year 12","average","1 month",31.19934028,72,13
+"187","1","F",52,"Postgrad","average","1 month",32.06646991,78,0
+"188","2","F",59,"Bachelors","average","1 month",32.31479167,110,1
+"189","2","F",47,"Postgrad","below","1 month",31.91821759,69,3
+"190","2","F",57,"Postgrad","below","1 month",34.82256944,69,39
+"191","2","F",53,"Postgrad","below","1 month",36.62559028,53,31
+"194","2","F",41,"Less than Year 12","average","1 month",31.02234954,73,7
+"197","4","F",29,"Postgrad","average","1 month",31.36675926,96,6
+"199","1","F",28,"Bachelors","above","1 month",55.81447917,79,2
+"201","2","F",51,"Postgrad","average","1 month",34.14971065,79,2
+"203","1","F",54,"Postgrad","below","1 month",31.14469907,71,13
+"205","1","M",41,"Bachelors","above","1 month",31.15288194,50,42
+"207","3","F",50,"Postgrad","above","1 month",31.17847222,55,36
+"211","3","F",50,"Bachelors","below","1 month",32.60431713,68,17
+"213","2","F",37,"Postgrad","above","1 month",31.28716435,69,8
+"215","4","F",75,"Vocational training","average","1 month",31.59675926,96,1
+"217","4","M",46,"Year 12","above","1 month",31.56509259,49,45
+"222","1","F",58,"Postgrad","average","1 month",31.9265625,86,3
+"224","1","F",58,"Bachelors","above","1 month",31.12121528,80,1
+"226","2","F",42,"Bachelors","below","1 month",45.70890046,77,11
+"227","4","F",46,"Postgrad","above","1 month",32.01384259,97,5
+"229","4","F",48,"Vocational training","average","1 month",35.23928241,81,1
+"232","1","F",43,"Postgrad","average","1 month",61.79916667,78,3
+"234","3","M",33,"Postgrad","above","1 month",31.66811343,98,2
+"235","2","M",18,"Year 12","below","1 month",31.86841435,90,3
+"237","4","M",33,"Vocational training","above","1 month",31.0293287,85,0
+"238","4","F",30,"Postgrad","average","1 month",31.61521991,92,0
+"239","1","F",49,"Postgrad","average","1 month",31.08625,93,6
+"240","3","F",49,"Year 12","above","1 month",31.9531713,111,3
+"241","4","F",40,"Postgrad","above","1 month",31.14202546,83,6
+"243","4","M",26,"Bachelors","average","1 month",31.04155093,85,7
+"244","2","F",77,"Vocational training","average","1 month",31.25137731,75,22
+"245","4","F",29,"Year 12","below","1 month",32.3137037,78,1
+"246","3","F",52,"Postgrad","average","1 month",33.27387731,80,6
+"249","1","F",30,"Bachelors","above","1 month",34.97375,84,1
+"251","4","M",31,"Postgrad","average","1 month",35.08501157,72,12
+"254","3","F",27,"Postgrad","average","1 month",37.16398148,84,9
+"255","4","F",34,"Vocational training","average","1 month",31.08672454,61,18
+"257","1","F",62,"Postgrad","average","1 month",31.39880787,52,40
+"259","4","F",54,"Bachelors","above","1 month",31.7575463,79,3
+"261","3","M",55,"Bachelors","above","1 month",37.00680556,81,1
+"265","2","F",52,"Less than Year 12","above","1 month",31.24309028,86,1
+"267","4","F",19,"Year 12","below","1 month",43.69707176,45,29
+"273","3","F",55,"Postgrad","average","1 month",37.15054398,92,0
+"276","1","F",37,"Postgrad","average","1 month",34.98086806,69,12
+"278","4","F",56,"Vocational training","average","1 month",31.04609954,84,14
+"279","2","F",58,"Vocational training","average","1 month",31.04469907,79,3
+"281","4","M",67,"Bachelors","average","1 month",31.37748843,87,1
+"282","1","F",43,"Year 12","average","1 month",31.2571412,69,11
+"283","2","F",39,"Bachelors","average","1 month",36.0402662,89,8
+"288","3","M",26,"Postgrad","below","1 month",32.37157407,68,21
+"2","1","F",59,"Less than Year 12","below","3 month",92.17670139,80,15
+"4","3","F",50,"Postgrad","average","3 month",91.32197917,61,35
+"5","2","M",58,"Postgrad","average","3 month",90.80498843,47,18
+"8","2","F",57,"Bachelors","average","3 month",120.56,43,51
+"11","2","F",56,"Postgrad","below","3 month",93.90822917,72,16
+"12","2","F",46,"Bachelors","above","3 month",91.70231481,41,38
+"14","4","F",41,"Less than Year 12","average","3 month",95.95356481,50,30
+"19","1","F",37,"Vocational training","below","3 month",94.01376157,66,15
+"21","3","F",42,"Bachelors","average","3 month",91.48606481,57,37
+"22","4","F",29,"Bachelors","average","3 month",119.4078125,87,5
+"24","3","F",51,"Bachelors","above","3 month",91.6496875,55,47
+"27","4","F",34,"Bachelors","above","3 month",92.03399306,55,20
+"28","1","F",62,"Bachelors","below","3 month",117.9065509,87,2
+"33","4","F",40,"Postgrad","above","3 month",91.05532407,91,1
+"34","1","F",43,"Postgrad","above","3 month",95.76025463,72,21
+"37","2","F",47,"Postgrad","average","3 month",97.48884259,53,25
+"38","3","F",50,"Bachelors","above","3 month",94.68957176,65,9
+"40","2","F",53,"Bachelors","above","3 month",90.94940972,94,8
+"41","4","F",50,"Year 12","average","3 month",91.08175926,72,10
+"42","2","F",46,"Bachelors","average","3 month",94.50993056,88,5
+"43","3","F",24,"Bachelors","above","3 month",111.7666204,77,16
+"44","2","M",36,"Bachelors","above","3 month",91.86881944,81,12
+"47","4","F",32,"Vocational training","average","3 month",91.07730324,63,25
+"48","2","F",42,"Vocational training","below","3 month",91.90859954,93,6
+"50","3","F",39,"Postgrad","average","3 month",94.37434028,95,1
+"51","2","F",83,"Year 12","average","3 month",94.90545139,86,15
+"52","3","M",52,"Postgrad","above","3 month",94.97884259,70,10
+"53","1","F",40,"Vocational training","below","3 month",89.93611111,75,10
+"61","4","F",43,"Bachelors","average","3 month",91.48609954,90,8
+"64","1","F",39,"Vocational training","average","3 month",102.7054282,61,19
+"65","2","F",50,"Bachelors","below","3 month",93.08077546,69,9
+"66","2","F",51,"Postgrad","above","3 month",93.47818287,74,20
+"67","1","F",65,"Bachelors","average","3 month",91.90513889,67,5
+"74","2","F",54,"Bachelors","average","3 month",94.11087963,86,10
+"75","2","F",41,"Year 12","below","3 month",90.99918981,72,5
+"76","1","F",48,"Vocational training","average","3 month",91.92666667,105,5
+"77","1","F",37,"Postgrad","average","3 month",116.1098495,58,30
+"79","4","F",54,"Vocational training","average","3 month",98.9212037,80,3
+"80","2","F",33,"Bachelors","above","3 month",91.75291667,68,8
+"83","4","F",71,"Year 12","below","3 month",91.2399537,73,4
+"89","4","F",33,"Postgrad","average","3 month",91.00369213,80,4
+"92","3","F",60,"Postgrad","above","3 month",91.49204861,74,5
+"95","2","F",56,"Bachelors","below","3 month",93.74982639,88,0
+"98","2","F",65,"Vocational training","below","3 month",98.28811343,84,3
+"101","4","F",60,"Postgrad","above","3 month",91.89605324,86,1
+"107","1","F",44,"Bachelors","above","3 month",90.21072917,106,0
+"111","4","F",63,"Postgrad","average","3 month",92.26715278,84,3
+"113","1","M",42,"Bachelors","below","3 month",93.46246528,46,29
+"114","1","F",71,"Bachelors","below","3 month",90.92975694,90,1
+"115","1","M",52,"Postgrad","above","3 month",91.38905093,88,6
+"117","3","F",51,"Bachelors","above","3 month",91.65724537,74,2
+"118","2","F",61,"Bachelors","average","3 month",93.16329861,46,33
+"119","3","F",38,"Postgrad","average","3 month",96.08166667,80,2
+"121","3","F",26,"Vocational training","below","3 month",97.15087963,73,9
+"122","1","F",23,"Postgrad","average","3 month",92.05761574,82,13
+"124","4","F",62,"Year 12","below","3 month",92.30681713,75,6
+"125","2","F",56,"Bachelors","above","3 month",90.97840278,58,20
+"127","1","F",42,"Vocational training","average","3 month",91.00791667,74,2
+"128","4","F",46,"Postgrad","above","3 month",93.16359954,83,3
+"130","4","M",21,"Less than Year 12","below","3 month",93.91825231,60,15
+"131","2","F",48,"Postgrad","average","3 month",92.37599537,73,13
+"132","2","F",33,"Postgrad","above","3 month",108.8879861,63,25
+"134","1","F",52,"Bachelors","below","3 month",94.92368056,74,5
+"135","4","F",59,"Postgrad","above","3 month",94.84175926,111,2
+"136","3","F",52,"Postgrad","above","3 month",107.3037153,87,2
+"137","2","M",47,"Postgrad","above","3 month",91.05547454,80,7
+"138","1","F",23,"Year 12","below","3 month",91.02826389,65,13
+"141","2","M",67,"Postgrad","average","3 month",100.7990046,74,4
+"143","2","M",48,"Year 12","average","3 month",93.76010417,77,1
+"144","1","F",57,"Postgrad","average","3 month",87.72060185,75,3
+"148","3","F",34,"Bachelors","below","3 month",91.30659722,79,6
+"150","3","F",44,"Vocational training","below","3 month",103.9938657,74,10
+"153","4","M",48,"Postgrad","average","3 month",97.99810185,59,16
+"156","4","F",26,"Vocational training","average","3 month",92.82424769,84,4
+"158","4","F",34,"Postgrad","above","3 month",103.2026042,92,5
+"160","4","F",40,"Postgrad","above","3 month",109.8246412,94,0
+"161","3","M",43,"Postgrad","above","3 month",97.13202546,77,10
+"164","2","F",30,"Bachelors","average","3 month",93.98637731,78,4
+"167","2","F",34,"Postgrad","above","3 month",91.05081019,82,6
+"169","1","F",52,"Postgrad","above","3 month",98.94125,41,33
+"173","3","M",48,"Postgrad","above","3 month",91.12087963,72,26
+"175","1","F",46,"Vocational training","average","3 month",93.01001157,70,21
+"177","1","F",53,"Bachelors","above","3 month",92.66344907,61,15
+"178","1","F",31,"Postgrad","average","3 month",94.31024306,83,5
+"180","1","F",57,"Vocational training","below","3 month",126.9344213,93,1
+"182","3","F",55,"Postgrad","above","3 month",92.8447338,89,10
+"184","3","F",60,"Postgrad","average","3 month",91.74737269,85,0
+"185","3","M",41,"Bachelors","below","3 month",92.11046296,38,39
+"186","4","F",46,"Less than Year 12","average","3 month",91.07252315,74,4
+"187","1","F",52,"Postgrad","average","3 month",93.70327546,83,1
+"190","2","F",57,"Postgrad","below","3 month",96.95550926,82,16
+"191","2","F",53,"Postgrad","below","3 month",93.96303241,52,31
+"193","2","M",25,"Postgrad","average","3 month",113.8670023,114,0
+"194","2","F",41,"Less than Year 12","average","3 month",93.88998843,71,10
+"197","4","F",29,"Postgrad","average","3 month",91.87998843,94,3
+"199","1","F",28,"Bachelors","above","3 month",101.8998958,80,3
+"201","2","F",51,"Postgrad","average","3 month",101.2316319,80,5
+"203","1","F",54,"Postgrad","below","3 month",93.31488426,112,6
+"205","1","M",41,"Bachelors","above","3 month",92.20393519,52,39
+"207","3","F",50,"Postgrad","above","3 month",92.99939815,46,32
+"211","3","F",50,"Bachelors","below","3 month",92.96857639,63,10
+"213","2","F",37,"Postgrad","above","3 month",95.09638889,75,4
+"215","4","F",75,"Vocational training","average","3 month",92.63724537,77,4
+"221","3","F",51,"Postgrad","average","3 month",115.3164583,78,13
+"222","1","F",58,"Postgrad","average","3 month",94.79965278,88,9
+"224","1","F",58,"Bachelors","above","3 month",95.92616898,80,1
+"232","1","F",43,"Postgrad","average","3 month",122.9087037,77,10
+"235","2","M",18,"Year 12","below","3 month",91.54748843,93,0
+"237","4","M",33,"Vocational training","above","3 month",91.37670139,66,10
+"238","4","F",30,"Postgrad","average","3 month",94.70268519,92,8
+"239","1","F",49,"Postgrad","average","3 month",97.96261574,93,3
+"241","4","F",40,"Postgrad","above","3 month",97.16905093,90,4
+"243","4","M",26,"Bachelors","average","3 month",91.96163194,82,14
+"245","4","F",29,"Year 12","below","3 month",92.11862269,75,8
+"246","3","F",52,"Postgrad","average","3 month",93.93303241,39,45
+"249","1","F",30,"Bachelors","above","3 month",95.98653935,86,4
+"251","4","M",31,"Postgrad","average","3 month",96.98615741,75,8
+"254","3","F",27,"Postgrad","average","3 month",91.41780093,85,5
+"255","4","F",34,"Vocational training","average","3 month",91.20655093,69,14
+"257","1","F",62,"Postgrad","average","3 month",91.40224537,52,33
+"259","4","F",54,"Bachelors","above","3 month",91.70814815,80,4
+"261","3","M",55,"Bachelors","above","3 month",95.06054398,80,0
+"262","2","F",24,"Bachelors","average","3 month",91.9694213,69,11
+"265","2","F",52,"Less than Year 12","above","3 month",91.03068287,85,3
+"267","4","F",19,"Year 12","below","3 month",96.71472222,55,17
+"273","3","F",55,"Postgrad","average","3 month",95.00273148,83,0
+"276","1","F",37,"Postgrad","average","3 month",93.12386574,82,5
+"278","4","F",56,"Vocational training","average","3 month",95.09731481,99,0
+"279","2","F",58,"Vocational training","average","3 month",96.01614583,42,37
+"281","4","M",67,"Bachelors","average","3 month",93.30798611,89,0
+"282","1","F",43,"Year 12","average","3 month",91.98383102,85,8
+"283","2","F",39,"Bachelors","average","3 month",93.03388889,84,18
+"288","3","M",26,"Postgrad","below","3 month",92.40325231,63,21
+"2","1","F",59,"Less than Year 12","below","6 month",182.3531944,77,12
+"11","2","F",56,"Postgrad","below","6 month",181.9921644,68,24
+"12","2","F",46,"Bachelors","above","6 month",182.0251389,32,50
+"14","4","F",41,"Less than Year 12","average","6 month",188.2505093,44,34
+"19","1","F",37,"Vocational training","below","6 month",182.9392245,76,7
+"22","4","F",29,"Bachelors","average","6 month",182.7953356,92,9
+"24","3","F",51,"Bachelors","above","6 month",182.8610301,59,37
+"27","4","F",34,"Bachelors","above","6 month",182.1831134,50,24
+"28","1","F",62,"Bachelors","below","6 month",187.7336574,92,0
+"33","4","F",40,"Postgrad","above","6 month",193.9155787,77,29
+"34","1","F",43,"Postgrad","above","6 month",184.9901042,74,17
+"37","2","F",47,"Postgrad","average","6 month",182.0454745,81,8
+"38","3","F",50,"Bachelors","above","6 month",185.7149769,66,29
+"39","2","F",49,"Bachelors","below","6 month",182.6787384,91,5
+"40","2","F",53,"Bachelors","above","6 month",182.9819213,76,4
+"41","4","F",50,"Year 12","average","6 month",183.1026968,69,33
+"43","3","F",24,"Bachelors","above","6 month",182.462419,76,20
+"44","2","M",36,"Bachelors","above","6 month",183.2185185,75,10
+"48","2","F",42,"Vocational training","below","6 month",184.6681944,88,5
+"50","3","F",39,"Postgrad","average","6 month",182.3780671,91,0
+"51","2","F",83,"Year 12","average","6 month",185.8527778,91,10
+"53","1","F",40,"Vocational training","below","6 month",183.802419,81,7
+"57","4","F",45,"Bachelors","below","6 month",211.6767824,61,20
+"62","2","F",27,"Postgrad","above","6 month",182.3624769,79,6
+"64","1","F",39,"Vocational training","average","6 month",184.7617593,67,19
+"65","2","F",50,"Bachelors","below","6 month",185.0453125,72,11
+"66","2","F",51,"Postgrad","above","6 month",184.0680093,79,3
+"74","2","F",54,"Bachelors","average","6 month",181.9684144,97,1
+"75","2","F",41,"Year 12","below","6 month",181.9859028,90,6
+"76","1","F",48,"Vocational training","average","6 month",182.8663079,110,3
+"79","4","F",54,"Vocational training","average","6 month",188.9632176,81,4
+"80","2","F",33,"Bachelors","above","6 month",193.5273264,56,29
+"83","4","F",71,"Year 12","below","6 month",182.0964815,72,3
+"89","4","F",33,"Postgrad","average","6 month",181.9977662,84,0
+"92","3","F",60,"Postgrad","above","6 month",182.4221528,75,0
+"95","2","F",56,"Bachelors","below","6 month",184.123044,81,12
+"98","2","F",65,"Vocational training","below","6 month",192.8973843,78,1
+"111","4","F",63,"Postgrad","average","6 month",187.3165394,82,2
+"113","1","M",42,"Bachelors","below","6 month",182.4791319,44,48
+"114","1","F",71,"Bachelors","below","6 month",182.5585417,90,7
+"118","2","F",61,"Bachelors","average","6 month",184.9603009,42,46
+"121","3","F",26,"Vocational training","below","6 month",189.0768981,75,9
+"122","1","F",23,"Postgrad","average","6 month",182.7214931,70,15
+"124","4","F",62,"Year 12","below","6 month",187.2496412,70,7
+"126","2","F",40,"Postgrad","average","6 month",202.0968866,36,36
+"127","1","F",42,"Vocational training","average","6 month",182.008831,82,1
+"128","4","F",46,"Postgrad","above","6 month",182.8729861,87,1
+"130","4","M",21,"Less than Year 12","below","6 month",192.08,78,11
+"131","2","F",48,"Postgrad","average","6 month",183.2446296,61,39
+"132","2","F",33,"Postgrad","above","6 month",182.0106019,76,17
+"134","1","F",52,"Bachelors","below","6 month",183.9395139,74,4
+"135","4","F",59,"Postgrad","above","6 month",182.0055787,114,2
+"136","3","F",52,"Postgrad","above","6 month",198.4371875,90,1
+"137","2","M",47,"Postgrad","above","6 month",182.1083565,75,17
+"139","2","F",51,"Bachelors","below","6 month",185.9774537,88,3
+"140","3","M",31,"Vocational training","below","6 month",192.9091898,85,11
+"141","2","M",67,"Postgrad","average","6 month",191.6828356,84,12
+"143","2","M",48,"Year 12","average","6 month",182.0064352,84,0
+"150","3","F",44,"Vocational training","below","6 month",195.1767477,75,18
+"153","4","M",48,"Postgrad","average","6 month",181.9629861,54,12
+"156","4","F",26,"Vocational training","average","6 month",190.8043403,91,0
+"159","4","F",44,"Bachelors","below","6 month",182.2380671,78,13
+"160","4","F",40,"Postgrad","above","6 month",186.0500347,93,4
+"161","3","M",43,"Postgrad","above","6 month",181.9905671,83,8
+"164","2","F",30,"Bachelors","average","6 month",184.8266782,86,3
+"167","2","F",34,"Postgrad","above","6 month",182.0017245,77,12
+"168","2","F",42,"Year 12","below","6 month",183.7972569,76,13
+"169","1","F",52,"Postgrad","above","6 month",186.0292477,61,24
+"173","3","M",48,"Postgrad","above","6 month",184.2056713,72,17
+"177","1","F",53,"Bachelors","above","6 month",194.7329398,71,14
+"178","1","F",31,"Postgrad","average","6 month",185.4763657,79,1
+"181","3","F",45,"Bachelors","below","6 month",185.2506944,95,4
+"182","3","F",55,"Postgrad","above","6 month",183.8440046,89,6
+"184","3","F",60,"Postgrad","average","6 month",182.8579745,92,0
+"185","3","M",41,"Bachelors","below","6 month",187.0744097,50,40
+"186","4","F",46,"Less than Year 12","average","6 month",182.0697338,77,4
+"187","1","F",52,"Postgrad","average","6 month",192.1875579,72,1
+"188","2","F",59,"Bachelors","average","6 month",182.2898495,103,0
+"189","2","F",47,"Postgrad","below","6 month",194.7226736,77,2
+"190","2","F",57,"Postgrad","below","6 month",184.8585301,69,32
+"191","2","F",53,"Postgrad","below","6 month",190.585544,46,43
+"194","2","F",41,"Less than Year 12","average","6 month",181.9309954,78,2
+"197","4","F",29,"Postgrad","average","6 month",211.1747338,85,13
+"199","1","F",28,"Bachelors","above","6 month",188.8272454,84,5
+"202","4","F",45,"Less than Year 12","average","6 month",182.6681829,82,3
+"205","1","M",41,"Bachelors","above","6 month",184.1983102,49,45
+"207","3","F",50,"Postgrad","above","6 month",182.9946296,54,32
+"211","3","F",50,"Bachelors","below","6 month",184.9123148,55,23
+"213","2","F",37,"Postgrad","above","6 month",182.064919,69,19
+"217","4","M",46,"Year 12","above","6 month",182.4225926,90,5
+"222","1","F",58,"Postgrad","average","6 month",206.1364931,91,10
+"224","1","F",58,"Bachelors","above","6 month",210.1118866,87,1
+"230","2","F",21,"Year 12","below","6 month",187.1402778,59,21
+"232","1","F",43,"Postgrad","average","6 month",223.8197454,81,7
+"236","3","F",27,"Bachelors","average","6 month",182.0529861,68,3
+"237","4","M",33,"Vocational training","above","6 month",183.445706,73,1
+"238","4","F",30,"Postgrad","average","6 month",182.6256944,92,1
+"239","1","F",49,"Postgrad","average","6 month",182.0349653,64,32
+"241","4","F",40,"Postgrad","above","6 month",187.9909144,85,7
+"243","4","M",26,"Bachelors","average","6 month",184.7867245,75,23
+"245","4","F",29,"Year 12","below","6 month",183.1323264,78,0
+"246","3","F",52,"Postgrad","average","6 month",188.9617708,51,26
+"249","1","F",30,"Bachelors","above","6 month",185.1826736,83,6
+"251","4","M",31,"Postgrad","average","6 month",192.9860417,72,8
+"254","3","F",27,"Postgrad","average","6 month",190.4365741,84,5
+"255","4","F",34,"Vocational training","average","6 month",182.0179514,84,11
+"257","1","F",62,"Postgrad","average","6 month",184.4828241,49,45
+"259","4","F",54,"Bachelors","above","6 month",181.9403935,87,3
+"261","3","M",55,"Bachelors","above","6 month",184.1962269,81,1
+"264","1","F",27,"Bachelors","average","6 month",182.0815162,66,20
+"265","2","F",52,"Less than Year 12","above","6 month",182.1803935,87,4
+"267","4","F",19,"Year 12","below","6 month",182.7877546,69,14
+"273","3","F",55,"Postgrad","average","6 month",183.2803704,80,0
+"276","1","F",37,"Postgrad","average","6 month",189.9715856,89,1
+"278","4","F",56,"Vocational training","average","6 month",192.1500463,78,34
+"279","2","F",58,"Vocational training","average","6 month",182.2659491,63,26
+"281","4","M",67,"Bachelors","average","6 month",182.0425347,87,1
+"282","1","F",43,"Year 12","average","6 month",182.2921181,75,13
+"283","2","F",39,"Bachelors","average","6 month",182.0047106,86,7
+"288","3","M",26,"Postgrad","below","6 month",181.9519676,69,10

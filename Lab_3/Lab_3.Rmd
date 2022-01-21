@@ -1,0 +1,297 @@
+---
+title: "Lab 3"
+output:
+  html_document:
+    df_print: paged
+  html_notebook: default
+  pdf_document: default
+---
+
+<style type='text/css'>
+  body{
+  font-size: 14pt;
+  }
+  pre {
+  font-size: 12pt;
+  }
+</style>
+
+```{r Install Packages, include = F}
+if(!require("ggplot2")) install.packages("ggplot2")
+if(!require("tidyverse")) install.packages("tidyverse")
+if(!require("reshape")) install.packages("reshape")
+
+knitr::opts_chunk$set(fig.width=6, fig.height=4, fig.align="center")
+```
+
+In this lab we will be working with data from SeligmanWoodworth, O'Briend-Malone, Diamond & Schuz, 2018. The authors were testing the claim that a web-based positive psychology intervention (PPIs) lastingly increases happiness and decreases depressive symptoms.   
+
+The data set includes the following demographics: 
+
+1. `id`: Participant's ID.
+2. `intervention`: 3 PPIs, plus 1 control condition
+    + 1 = "Using signature strengths"
+    + 2 = "Three good things"
+    + 3 = "Gratitude visit"
+    + 4 = "Recording early memories" (control condition)
+3. `sex`: 
+    + 1 = Female
+    + 2 = Male.
+4. `age` (years)
+5. `educ`: Level of education
+    + 1 = Less than Year 12
+    + 2 = Year 12
+    + 3 = Vocational training
+    + 4 = Bachelors
+    + 5 = Postgraduate degree
+6. `income`:
+    + 1 = below average
+    + 2 = average
+    + 3 = above average
+    
+And the following measurements:
+
+7. `occasion`: 
+    + 0 = Pretest (i.e., at enrollment)
+    + 1 = Posttest (i.e., 7 days after pretest)
+    + 2 = 1-week follow-up (i.e., 7 days after posttest)
+    + 3 = 1-month follow-up
+    + 4 = 3-month follow-up
+    + 5 = 6-month follow-up
+8. `elapsed.days`: Time since enrollment in fractional days
+9. `ahi01-ahi24`: Responses on 24 Authentic Happiness Inventory (AHI) items.
+10 `cesd01-cesd20`: Responses on 20 Center for Epidemiological Studies Depression (CES-D) items.
+11. `ahiTotal` = Total AHI Score 
+12. `cesdTotal` = Total CES-D score
+
+These last two variables are our dependent measures. We are interested in analyzing as a function of participant demographics and intervention type.
+
+# Load Data
+
+Lets go ahead and load the data set from a `.csv` file into a dataframe.
+```{r Read in Data}
+# read in data
+posPsy.data <- read.csv('posPsy_data_wide.csv')
+```
+
+We can check out the first 6 rows of the data using the `head()` function.
+```{r Shown first couple rows}
+head(posPsy.data)
+```
+
+# Data Wrangling
+
+You might notice that this data frame is kind of a mess. Different measurement occasions are coded as different columns, there is no factor variable for the different survey items, etc. Lets first reshape the dataframe into a more manageable format. To do this, we will use the `melt()` function from the library `reshape`.  
+We will create a melted dataframe for each factor, and then bind them together into one large data frame.  
+The melt() function requires three inputs: a dataframe, the ids of your measured variable (e.g., age), and your measured variables. The last two can be passed through as lists.  
+
+Now, there are a ton of column names and typing them out individual in a list takes forever. It is also error prone. Instead, we can `tidyverse`:
+
+```{r Regular expression}
+library(tidyverse)
+
+occasion_cols <- posPsy.data %>% select(contains('occasion'))
+
+occasion_cols.names <- colnames(occasion_cols)
+
+```
+
+Here we used the "pipe" operator (i.e. `%>%`) to start a sequence of actions. Then, we used the `select()` function paired with the `contains()` function to grab columns that contained the word "occasion".  
+
+Now we can use this list of column names to create a melted data frame of the occasion info.
+```{r Reshape data, message=F}
+library(reshape)
+
+occasion_melt <- melt(posPsy.data, 
+                      id.vars = c("id","intervention","sex","age","educ","income"),
+                      measure.vars = occasion_cols.names,
+                      variable_name = 'occasion')
+
+head(occasion_melt)
+
+```
+As you can see, we now have a dataframe with columns for our id variables, while all of the occasion columns have been put into a single column labeled **occasion**. Their corresponding values are in the **value** column.  
+
+We can do the same for the factors `ahiTotal`, `cesdTotal`, and `elapsed.days`:
+
+```{r Melt dataframes}
+
+# extract columns
+ahi_cols.names <- colnames(posPsy.data %>% select(contains('ahiTotal')))
+
+cesd_cols.names <- colnames(posPsy.data %>% select(contains('cesdTotal')))
+
+elapsed_cols.names <- colnames(posPsy.data %>% select(contains('elapsed')))
+
+# create melted dataframes
+
+ahi_melt <- melt(posPsy.data, 
+                      id.vars = c("id","intervention","sex","age","educ","income"),
+                      measure.vars = ahi_cols.names,
+                      variable_name = 'ahiTotal')
+
+cesd_melt <- melt(posPsy.data, 
+                      id.vars = c("id","intervention","sex","age","educ","income"),
+                      measure.vars = cesd_cols.names,
+                      variable_name = 'cesdTotal')
+
+elapsed_melt <- melt(posPsy.data, 
+                      id.vars = c("id","intervention","sex","age","educ","income"),
+                      measure.vars = elapsed_cols.names,
+                      variable_name = 'elapsed_days')
+
+```
+
+Some of these dataframes have redundant columns, so lets drop them before binding them together.
+
+```{r Drop redundants}
+
+occasion_melt <- occasion_melt[,-8]
+ahi_melt <- ahi_melt[,-7]
+elapsed_melt <- elapsed_melt[,-7]
+cesd_melt <- cesd_melt[,-7]
+
+```
+
+Now lets bind them all together into one large data frame using the function `cbind()`. Note, we only need the first 6 columns from a single melted data frame, so we can ignore them from the other ones.
+```{r Bind Data}
+
+posPsy.data_new <- cbind(occasion_melt, 'elapsed_days'=elapsed_melt$value,
+                         'ahiTotal'=ahi_melt$value, 'cesdTotal'=cesd_melt$value)
+
+```
+
+It took a lot of steps, but lets look at our nice new data frame now:
+
+```{r Show new dataframe}
+head(posPsy.data_new)
+```
+
+Whats nice about the melt function is that it prevents us from having to manually create repeated instances of our demographic variables. This function will be integral for transforming data into a format that allows us to run ANOVAs later in the course. 
+
+# Data Preprocessing
+
+This may just be a review of some stuff you covered in 221A, but now we need to convert some of our variables into *factors* and check for missing rows with missing values.
+```{r Convert Variables to Factors}
+posPsy.data_new$id <- factor(posPsy.data_new$id)
+
+posPsy.data_new$intervention <- factor(posPsy.data_new$intervention)
+
+posPsy.data_new$sex <- factor(posPsy.data_new$sex, labels=c('F','M'))
+
+posPsy.data_new$educ <- factor(posPsy.data_new$educ, labels=c('Less than Year 12',
+                                                              'Year 12',
+                                                              'Vocational training',
+                                                              'Bachelors',
+                                                              'Postgrad'))
+
+posPsy.data_new$income <- factor(posPsy.data_new$income, labels=c('below average',
+                                                                  'average',
+                                                                  'above average'))
+
+posPsy.data_new$occasion <- factor(posPsy.data_new$occasion, labels=c('Pre',
+                                                                      'Post',
+                                                                      '1 week',
+                                                                      '1 month',
+                                                                      '3 months',
+                                                                      '6 months'))
+```
+
+Note, there is a faster way to do this using the `apply()` function, but we'll use this method for the sake of simplicity.
+
+
+Lets check to see if there are any missing values in the data frame now
+```{r Check for Missing Values}
+any(is.na(posPsy.data_new))
+```
+Breaking down this line of code, the function `is.na()` checks the dataframe for any `NA` values. It returns a logical vector (i.e., TRUE/FALSE values). Next, the function `any()` checks this logical vector for any values equal to TRUE. If any of the values are TRUE, then the function will return TRUE.  
+
+So, it looks like we have NAs in this dataframe! How you handle missing values will depend on your analysis. Since we aren't analyzing this dataset, we'll just remove them.
+
+```{r Remove NAs}
+posPsy.data_clean <- drop_na(posPsy.data_new)
+```
+
+# Exploratory Data Analysis (EDA)
+
+Time to explore the data. EDA is one of the most integrals parts of the statistical testing pipeline that is largely under appreciated. It is where we can supplement our hypotheses with additional insights on which factors may influence our dependent variables.  
+
+First, lets look at how the dependent variables `ahiTotal` and `csedTotal` are distributed. For this, we will use the `ggplot` package.
+```{r achi density plot}
+
+ggplot(posPsy.data_clean, aes(x=ahiTotal)) + 
+  geom_histogram(bins=25, fill='blue', col='black', alpha=0.2) + # plot blue histogram
+  labs(x='Total AHI Score', y='Frequency', title='Distribution of AHI Scores') + 
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5))
+
+```
+
+Histograms are sufficient for checking properties such as normality, but they don't readily tell us the probability or likelihood of certain values within our data. What we could use instead is a **density plot**. You can think of this as like a smoothed histogram.
+
+```{r Desnity Plot}
+
+ggplot(posPsy.data_clean, aes(x=ahiTotal)) + 
+  geom_density( fill='blue', col='black', size = 1, alpha=0.1) + # blue density plot
+  labs(x='Total AHI Score', y='Density', title='Distribution of AHI Scores') + 
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5))
+
+```
+
+Regardless of the plot we choose, its clear that the distribution of `ahiTotal` scores is approximately normal with a bit of a leftward skew.  
+
+Lets test if this skew is large enough for the distribution to be considered non-normal. We can use **Shapiro-Wilk's** test, which evaluates the null hypothesis that the distribution is normal. If the test is significant, then the distribution is non-normal.
+
+```{r Shapiro-Wilks}
+shapiro.test(posPsy.data_clean$ahiTotal)
+```
+The results of the test are significant, indicating that our data is not normal. If we wanted to proceed with any of the typical analyses tests (e.g., t-test, regression, ANOVA), we would technically need to transform this data to make it normal. Possible transforms include taking the logarithm or square root of the data. Another approach might be to use some nonparametric analyses that do not make the assumption of normality.  
+
+Keep in mind, that t-test, regression, and ANOVAs are pretty robust to violations of normality.  
+
+Moving on, we can look at our response variable as a function of some of the independent variables. First we'll look at `cesdTotal` as a function of `age`:
+```{r Response vs Factors}
+ggplot(posPsy.data_clean, aes(x=age, y=cesdTotal)) + 
+  geom_point() +
+  labs(x='Age (years)', y='CESD Total Score') + 
+  theme_classic()
+```
+
+As you can see there is no clear linear relationship between a subject's age and their CESD score. Lets look at scores as a function of `occasion` using a box plot.
+
+```{r Boxplot,message=FALSE}
+ggplot(posPsy.data_clean, aes(x=occasion, y=cesdTotal)) + 
+  geom_boxplot(fill='green', size = 1, alpha=0.4) +
+  labs(x='Occasion', y='CESD Total Score') + 
+  theme_minimal()
+```
+
+The boxplot suggests that the mean CESD total score is comparable across different testing occasions. Whats more, is that there are some outliers in the data we might want to keep in mind when doing analyses.  
+
+Last thing, lets look at CESD total score as a function of two variables, both `income` and `intervention`. It would be useful to generate a summary of our data using these two factors first:
+
+```{r Data Summary, message=F}
+
+posPsy.summary <- posPsy.data_clean %>% 
+  group_by(intervention, income) %>% 
+  summarize(
+    mean.cesdTotal = mean(cesdTotal),
+    se.cesdTotal = sd(cesdTotal)/sqrt(length(cesdTotal)), # standard error of the mean
+    lower = mean.cesdTotal-se.cesdTotal,
+    upper = mean.cesdTotal+se.cesdTotal
+  )
+```
+
+
+Next, we can use this summary for plotting:
+```{r Boxplot 2, message=F}
+ggplot(posPsy.summary, aes(x=intervention, y=mean.cesdTotal, fill=income)) + 
+  geom_bar(stat='identity', position='dodge', 
+           color='slategray', size = 1, alpha=0.6) +
+  geom_errorbar(aes(ymin=lower, ymax=upper), 
+                position=position_dodge(width=.9), width=0.3) + 
+  labs(x='Intervention', y='CESD Total Score', fill='Income') + 
+  theme_minimal()
+```
+Looks like there definitely will be some differences in CESD Total score as a function of the type of interventions. Furthermore, there appear to be some differences between income levels.  
