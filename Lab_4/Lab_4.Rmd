@@ -1,0 +1,272 @@
+---
+title: "Lab 4"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<style type='text/css'>
+  body{
+  font-size: 14pt;
+  }
+  pre {
+  font-size: 12pt;
+  }
+</style>
+
+```{r library, message=F}
+library(tidyverse)
+library(car)
+```
+
+In this lab we will be covering the **General Linear Model** (GLM) and its relationship to ANOVAs. We'll cover implementing the GLM and an ANOVA by hand, and compare their outputs to functions built in R. For modeling, we'll work with a data set that contains information on 76 people who undertook one of three diets (*A*, *B*, *C*). The data set also includes background information such as age, gender, and height. Lets jump into it!
+
+# Load Data
+
+The dataset includes comlumns for:
+
++ `Person` ID
++ `gender`
++ `Age`
++ `Height`
++ `pre.weight` - weight at the start of the weight loss program
++ `Diet` - type of diet subject was put on
++ `weight6weeks` - weight at the end of the 6 week program
+
+
+We'll just speed through the data preprocessing stage, but if you want a more extensive break down of data wrangling and exploratory data analysis refer to Lab 3. Here, we are using `tidyverse` to quickly 
+create a new column for weight loss, convert categorical variable to factors, and remove rows with missing values.
+
+```{r load & process data}
+diet.df <- read.csv('diet.csv')
+
+diet.df <- diet.df %>% 
+  rename(final.weight = weight6weeks) %>% # rename weight6weeks column to final.weight
+  mutate(weight.loss = final.weight - pre.weight,
+         Diet = factor(Diet, labels=c('A','B','C')),
+         gender = factor(gender, labels=c('F','M')),
+         Person = factor(Person)) %>% 
+  drop_na() # drop missing data
+
+head(diet.df)
+```
+
+# General Linear Model
+
+As presented in lecture, the GLM is realized in the following equation:
+
+$$
+\begin{aligned}
+\underline{y} = X\underline{\beta} + \underline{\epsilon}
+\end{aligned}
+$$
+where $\underline{y}$ is an $n \times 1$ vector of dependent variables, $X$ is the $n \times p$ design matrix, $\underline{\beta}$ is a $p \times 1$ vector of unknown parameters to be estimated, and $\underline{\epsilon}$ is an $n \times 1$ vector.   
+
+This model is the work horse of statistics, and the basis of some machine/deep learning algorithms. Essentially, it states that the dependent variable **y** has a linear relationship with with some predictors that are represented by the design matrix. Using the matrix algebra that was stressed so heavily these past three weeks, parameters in the $\beta$ vector can be estimated, thereby producing a quantitative description of the linear relationship.   
+
+I won't take you through the whole derivation of how we can estimate these parameters, but just believe that the best estimator of $\beta$ is:
+
+$$
+\begin{aligned}
+\underline{\hat{\beta}} = (X'X)^{-1}X'\underline{y}
+\end{aligned}
+$$
+Note, the carrot on top of $\hat{\beta}$ indicates that this is an *estimation* for the true value of $\beta$. This method is known as **Ordinary Least Squares** (OLS) and in the best case scenario (i.e. all model assumptions are met), OLS estimates in $\hat{\beta}$ are the Best Linear Unbiased Estimators (BLUE) of parameters in $\beta$. In plain English, the estimated values have the minimum amount of variance compared to all other linear and unbiased estimators.   
+
+With this equation, we can proceed to use the GLM by hand to derive estimates for the parameters in $\beta$.
+
+## GLM By Hand
+
+First we'll define the relationship we are interested in testing. In this lab, we want to see if there are any differences in weight loss across the different diets. Setting up this analysis with the GLM, we have the following equation:
+
+$$
+\begin{aligned}
+\underline{y} = \begin{bmatrix}
+y_{11} \\
+y_{12} \\
+y_{21} \\
+y_{22} \\
+y_{31} \\
+y_{32}
+\end{bmatrix}
+ 
+X = \begin{bmatrix}
+1 & 0 & 0 \\
+1 & 0 & 0 \\
+1 & 1 & 0 \\
+1 & 1 & 0 \\
+1 & 0 & 1 \\
+1 & 0 & 1  
+\end{bmatrix}
+
+\underline{\beta} = \begin{bmatrix}
+\mu \\
+\tau_{1} \\
+\tau_{2} 
+\end{bmatrix}
+
+\underline{\epsilon} = \begin{bmatrix}
+\epsilon_{11} \\
+\epsilon_{12} \\
+\vdots \\
+\epsilon_{32}
+\end{bmatrix}
+\end{aligned}
+$$
+
+At the single subject level, this equation is:
+
+$$
+\begin{align*}
+y_{11} = \mu + \epsilon_{11} \\
+y_{21} = \mu + \tau_{1} + \epsilon_{21} \\
+y_{31} = \mu + \tau_{2} + \epsilon_{31} \\
+\end{align*}
+$$
+We can create the design matrix in R using the function `model.matrix`. Passed into the input is the model formula `weight.loss ~ Diet`, which states that we want to look at the linear relationship between weight loss and the different types of diets.  
+
+Note, on the left side of the `~` is your response variable (i.e., *y*), and the right side is your input variables.
+```{r Design matrix and outcome}
+X <- model.matrix(weight.loss ~ Diet, data=diet.df)
+y <- diet.df$weight.loss
+
+head(X)
+
+tail(X)
+```
+Notice that the first column of the design matrix is `(Intercept)` rather than `DietA`. By default, R sets the first level of a categorical variable as the intercept in the model design matrix. This can be overridden by removing the intercept term (e.g., `weight.loss ~ -1 + Diet`). Its important to know how R codes your categorical variables in the model, because this will influence their interpretation.   
+
+Now, using the OLS equation for $\beta$ above, we can compute its estimates. Here, we use the function `crossprod` to compute the cross product between two matrices. If a single matrix is passed to the function, then its the cross product between the matrix and its transpose. The `solve` function then solves a system of equations.
+
+```{r Outcome variable}
+beta <- solve(crossprod(X), crossprod(X,y))
+
+print(beta)
+```
+Looking at the estimated coefficients, the `(Intercept)` term represents the **mean value for the first group** (Diet A). The coefficients for Diet B and C represent the deviation of these groups from the mean of Diet A. So, the mean of Diet B = `beta[1] + beta[2]` = `r beta[1]+beta[2]`. 
+
+The $\epsilon$ term in the GLM represents the amount of error between model predictions (typically denoted as $\hat{y}$) and the actual data. You can think of this as how well the estimated parameters of $\beta$ fit the data, how much <u>residual</u> heterogeneity was left unexplained. Model predictions can be computed as:
+
+$$
+\begin{aligned}
+\hat{y} = X\hat{\beta}
+\end{aligned}
+$$
+Doing this in R:
+
+```{r residuals}
+error <- y - X%*%beta
+
+head(error)
+```
+Great! Now that we've done it by hand, lets use R packages that take care of this and more.
+
+## Working with `lm()`
+
+The `lm()` function is typically used for linear regression. You'll come to see that an ANOVA is just a special case of regression with categorical variables, but we can use this function to estimate the beta coefficients. When using the function, we'll use the same formula as before:
+
+```{r lm}
+model.1 <- lm(weight.loss ~ Diet, data=diet.df)
+
+summary(model.1)
+```
+The model summary shows that the estimated coefficients are the same as what we computed by hand before! Now, we have the added bonus of seeing the amount of error in those estimates, if they were significantly different from the null value of zero, and if the overall model fit was significant.   
+
+We can even compare the residuals we computed by hand to the model residuals.
+```{r}
+error.df <- cbind(error,model.1$residuals)
+head(error.df)
+```
+And they are exactly the same.
+
+## One-way ANOVA
+
+Now we are going to compute an ANOVA by hand, with a `lm` model, and the `aov` function. ANOVAs have the following assumptions:
+
++ Dependent variable is normally distributed
++ Population variance in each group is equal (i.e. Homogeneity of Variances)
++ Observations are independent
+
+Homogeneity of variance can be evaluated using a Levene's Test, which test the null hypothesis that the variance within each group is equal.
+```{r}
+leveneTest(weight.loss ~ Diet, data=diet.df)
+```
+A nonsignificant **F** statistic indicates that we fail to reject the null, implying that variance is equal across diet groups.
+
+Don't worry too much about the theory behind ANOVA just yet since we haven't covered it in lecture. This part of the lab is more to show you that although it feels like a separate analysis, ANOVA is actually just working with the GLM.  
+
+A One-way Anova tests if more than two groups are different from one another by comparing the ratio of the between group variability and residual error (i.e. within group variability) to what is expected under the null hypothesis of no difference.  
+
+Between group variability is computed calculating the sum of the squared differences between each group mean and the grand mean:
+
+$$
+\begin{align}
+SS_{treatment} = \sum_{i=1}^{m}\sum_{j=1}^{n_i}(\bar{X}_{i.} - \bar{X}_{..})^2
+\end{align}
+$$
+Meanwhile, residual error is the difference between each data point and the grand mean, which we have already computed. All we have to do is square it!
+
+```{r Compute SS by Hand}
+
+# error between group mean and grand mean
+treatment.error <- diet.df %>% 
+  group_by(Diet) %>% 
+  mutate(diffs = (mean(weight.loss) - mean(diet.df$weight.loss))^2) %>% 
+  ungroup()
+  
+ss_treatment <- sum(treatment.error$diffs)
+
+
+# error between and individuals weight and their group mean
+ss_error <- sum(error^2) 
+
+data.frame('SS' = c(ss_treatment,ss_error), row.names=c('Diet','Residuals'))
+```
+
+Here are the squared error terms. We can compute these using the previous `lm` model:
+
+```{r using the lm model}
+
+lm.ss_treatment <- sum((predict(model.1) - mean(diet.df$weight.loss))^2)
+lm.ss_error <- sum(model.1$residuals^2)
+
+data.frame('SS' = c(lm.ss_treatment,lm.ss_error), row.names=c('Diet','Residuals'))
+```
+
+Keep in mind that for the regression model is predicting the mean of each treatment group, so we can use the `predict` function to get predictions for each of our data points. When you sum up the squared differences, its the same as $SS_{treatment}$.  
+
+Now we have our sum of squared error terms. Next, we need to compute their averages relative to their respective degrees of freedom. $MST = SS_{treatment}/(m-1)$ where *m* is the number of groups. $MSE = SS_{residuals}/(n-m)$ where *n* is the total number of data points.
+
+```{r Compute Anova by Hand}
+n <- nrow(diet.df)
+
+m <- nlevels(diet.df$Diet)
+  
+MST <- ss_treatment/(m-1)
+
+MSE <- ss_error/(n-m)
+
+F.val <- MST/MSE
+
+custom.anova.table <- data.frame('Df' = c(m-1,n-m),
+                                 'Sum.Sq' = c(ss_treatment,ss_error),
+                                 'Mean.Sq' = c(MSE, MST),
+                                 'F' = c(F.val, NA),
+                                 'Pr(>F)'= c(pf(F.val,m-1,n-m,lower.tail=F), NA))
+
+row.names(custom.anova.table) <- c('Diet','Residuals')
+
+custom.anova.table
+```
+
+Using MST and MSE, we can compute our *F*-value and compare it to an *F*-distribution with our two degrees of freedom. If the value is improbable compared to the mean of that distribution, we reject the null hypothesis that the amount of variability between groups similar to the amount within groups.
+
+Lastly, we can check these results using the `aov` function.
+```{r}
+model.2 <- aov(weight.loss ~ Diet, data=diet.df)
+
+summary(model.2)
+```
+
