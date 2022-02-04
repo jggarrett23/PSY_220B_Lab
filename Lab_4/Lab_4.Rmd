@@ -252,7 +252,7 @@ F.val <- MST/MSE
 
 custom.anova.table <- data.frame('Df' = c(m-1,n-m),
                                  'Sum.Sq' = c(ss_treatment,ss_error),
-                                 'Mean.Sq' = c(MSE, MST),
+                                 'Mean.Sq' = c(MST, MSE),
                                  'F' = c(F.val, NA),
                                  'Pr(>F)'= c(pf(F.val,m-1,n-m,lower.tail=F), NA))
 

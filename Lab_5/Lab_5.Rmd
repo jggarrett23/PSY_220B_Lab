@@ -1,0 +1,231 @@
+---
+title: "Lab 5"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<style type='text/css'>
+  body{
+  font-size: 14pt;
+  }
+  pre {
+  font-size: 12pt;
+  }
+</style>
+
+```{r libraries, message=F}
+library(tidyverse)
+library(car)
+library(ggplot2)
+library(patchwork)
+library(ggpubr)
+```
+
+In this lab we are going to cover some more of the GLM and how it relates to ANOVAs. Before I get into that, I wanted to discuss some questions that arose after last weeks lab.
+
+# What is the Intercept term in GLM?
+
+One point of confusion was the **Intercept** term in GLM and its meaning. In the slides Dr. Sprague discusses how the Intercept is the grand mean, while in lab I said it was the mean of the first group of a categorical variable. 
+
+## Intercept when predictors are continous
+
+Lets take a step back and discuss the GLM and the intercept in the context of regression before moving onto ANOVAs. In a regression, your independent variable(s) (i.e. predictors) are continuous. For example we'll generate a continuous variable `x` and make `y=2x`. So they have a perfect linear relationship.
+
+```{r simple regression data}
+set.seed(123) # set seed for random number generators so that results are same each time you run code
+
+x <- rnorm(1000,20,1)
+y <- 2*x
+
+reg.data <- data.frame('x'=x,'y'=y)
+```
+
+Now lets look at if we just fit a linear model to the data with no predictors. This is also known as an **intercept-only** model. In this type of model, the intercept will be equivalent to the grand mean of the response variable `y`. We can see this visually by plotting the data:
+
+```{r intercept only}
+intercept_plot <- ggplot(reg.data, aes(x=1:length(y), y=y)) + 
+  geom_point(color='blue') + 
+  geom_smooth(method='lm', formula=y~1, se=F, color='red', size=2) +
+  theme_classic() +
+  theme(axis.title.x = element_blank())
+
+density_plot <- ggplot(reg.data, aes(x=y)) + 
+  geom_density(fill='red', color='grey', size=1.5, alpha=0.2) + 
+  geom_vline(xintercept=mean(y), color='red', size=2) + 
+  theme_void() +
+  coord_flip()
+
+
+intercept_plot + density_plot + 
+  plot_layout(ncol=2)
+
+```
+
+The red line represents the fit of a linear model on the response variable `y`, which we specified in ggplot with the snippet of code `formula=y~1`. On the right is just a density plot of the data with a line through the mean of the distribution. Notice how the two perfectly line up! So when there is no predictors in the model, the intercept is the mean of the response variable.
+
+Now lets look at what happens when we include the predictor `x` in the linear model:
+
+```{r simple regression}
+
+regression_plot <- ggplot(reg.data, aes(x=x, y=y)) + 
+  geom_point(color='blue') + 
+  geom_smooth(method='lm', formula=y~1 + x, se=F, color='red') +
+  theme_classic() +
+  theme(axis.title.x = element_blank())
+
+regression_plot
+```
+```{r}
+sim.reg <- lm(y~x, data=reg.data)
+
+coef(sim.reg)[1]
+```
+
+Notice how the intercept is no longer at the mean of the response distribution. Instead, it represents the predicted value of `y` when `x=0`. When it is impossible for your predictor to be equal to zero (e.g., a persons age), then the intercept can become uninterpretable. This issue can be circumvented by "centering" your predictor around the mean, but you'll learn more about that in 221C. **The point here is that the interpretation of the intercept changes depending on how you design your model.**
+
+## Intercept when predictors are categorical
+
+Now, when running ANOVAs, the predictor variable is categorical. But, we cannot pass words or categories into the model. Instead, we need to numerically represent each category. A common approach is to *dummy code* each variable using a vector of zeros and ones. For example, say we have a categorical variable for how students are feeling about learning the GLM:
+
+```{r glm sentiment}
+
+glm_sentiment <- c('Okay', 'Reeling', 'Drowning', 'Stats_is_No_Fun', 'Fun', 'Existential_Crisis_Mode')
+
+dummy_coded <- matrix(c(1,0,0,0,0,0,
+                        0,1,0,0,0,0,
+                        0,0,1,0,0,0,
+                        0,0,0,1,0,0,
+                        0,0,0,0,1,0,
+                        0,0,0,0,0,1), ncol=6, byrow=T)
+
+colnames(dummy_coded) <- glm_sentiment
+
+dummy_coded
+```
+
+Each level of the variable `glm_sentiment` can be represented using a vector of zeros with a single element set equal to 1. These vectors can then be inserted into our design matrix for the GLM, but there is a catch. Lets construct a design matrix with these vectors.
+
+```{r design matrix}
+
+design.mat <- cbind(1,dummy_coded)
+
+colnames(design.mat) <- c('Intercept',glm_sentiment)
+
+design.mat
+```
+Remember the GLM equation is 
+
+$$
+\begin{aligned}
+\underline{y} = X\underline{\beta} + \underline{\epsilon}
+\end{aligned}
+$$
+And we want to solve for the unknown coefficients in $\underline{\beta}$ using the normal equations:
+
+$$
+\begin{aligned}
+(X'X)\hat{\beta} = X'\underline{y} \\
+\\
+\hat{\beta} = (X'X)^{-1}X'\underline{y}
+\end{aligned}
+$$
+
+In order for $X'X$ to be invertable and for there to be a single solution to the estimated coefficients, it must be full rank (refer to Ashby's index on systems of linear equations). If we take the rank of our design matrix multiplied by itself, we will see that it is rank deficient.
+
+```{r deficient rank, message=F}
+library(Matrix)
+
+X_X <- t(design.mat) %*% design.mat
+
+paste("(X'X) Number of Columns = ", ncol(X_X),', Rank = ', rankMatrix(X_X)[1], sep='')
+```
+What are some ways we could structure the design matrix so that $X'X$ is full rank? Well first we could remove the intercept term:
+
+```{r no intercept}
+design.no_intercept <- design.mat[,-1]
+
+paste("(X'X) Number of Columns = ", ncol(design.no_intercept),', Rank = ', rankMatrix(design.no_intercept)[1], sep='')
+```
+This is what happens when we run the `lm()` function and put `y~0+glm_sentiment`. Since there is no intercept, then we don't have to worry about interpreting it.   
+
+The next thing we can do is set the first level of our categorical as a **reference**. What we chose as a reference is completely arbitrary, and by default R will just choose the group that comes first in alphabetical order. This is also referred to as *treatment contrasts* and what R uses by default. We can visualize this using the `contr.treament()` function: 
+
+```{r treatment contrast}
+contr.treatment(glm_sentiment)
+```
+
+Notice how the first level is set to all zero's? Recall that **the intercept is the value of y when x=0.** This is why the intercept coefficient represented the mean of the first group when we ran the model last week. The rest of the coefficients are linear combinations of the intercept term and their respective coefficient, hence how they represented deflections from the mean of the first group.  
+
+This is all good and well, but it still doesn't match up with the lecture slides. Well, traditionally in ANOVA we impose a *sum-to-zero* constraint on the coefficients. We visualize this in R using the function `contr.sum()`:
+
+```{r sum to zero}
+contr.sum(glm_sentiment)
+```
+Now we have a 1 for each level of the categorical variable, along with a -1 for the last group. Going down the columns, each will sum to 0, reflecting the sum to zero constraint. With this type of design matrix, the intercept represents the **grand mean of** the response variable across all levels of the categorical predictor. Meanwhile, the coefficients become trickier to interpret. Let's see it in action with some real data.  
+
+We'll use the same `diet.csv` file from last lab
+
+```{r diet sum to zero}
+
+diet.df <- read.csv('diet.csv')
+
+diet.df <- diet.df %>% 
+  rename(final.weight = weight6weeks) %>% # rename weight6weeks column to final.weight
+  mutate(weight.loss = final.weight - pre.weight,
+         Diet = factor(Diet, labels=c('A','B','C')),
+         gender = factor(gender, labels=c('F','M')),
+         Person = factor(Person)) %>% 
+  drop_na() # drop missing data
+```
+
+And look at the design matrix for the factor `Diet` predicting `weight.loss` with the contrast set to `contr.sum`:
+
+```{r Diet design matrix}
+
+model.matrix(~Diet, expand.grid(Diet=levels(diet.df$Diet)), contrast=list(Diet=contr.sum))
+
+```
+According to the design matrix, the mean for `Diet 1` (i.e. Diet A) is equal to the Intercept plus the coefficient for Diet A. Same goes for Diet B. What about Diet C? Well, the mean of Diet C is equal to the Intercept minus the coefficient for Diet A and B. We'll fit a model using this contrast.
+
+```{r Diet lm}
+
+diet.model_sumZero <- lm(weight.loss ~ Diet, diet.df, contrasts = list(Diet = contr.sum))
+
+coef(diet.model_sumZero)
+```
+And compare the coefficients from the model to the means of each group:
+
+```{r coef vs means}
+
+group_means <- diet.df %>% 
+  group_by(Diet) %>% 
+  summarise(mu=mean(weight.loss))
+
+grand_mean <- mean(group_means$mu)
+
+rbind(group_means,c(NA, grand_mean))
+```
+```{r}
+# Intercept + coef for Diet A
+coef(diet.model_sumZero)[[1]] + coef(diet.model_sumZero)[[2]]
+
+# Intercept + coef for Diet B
+coef(diet.model_sumZero)[[1]] + coef(diet.model_sumZero)[[3]]
+
+# Intercept - coef for Diet A and B
+coef(diet.model_sumZero)[[1]] - coef(diet.model_sumZero)[[2]] - coef(diet.model_sumZero)[[3]]
+
+# Intercept 
+coef(diet.model_sumZero)[[1]]
+```
+As you can see, the two match up completely. Note, in each of the cases we've covered the intercept is still equal to the value of the response variable when all predictors are at 0. Its just that the contrasts and how we set up the design matrix determines when x=0. 
+
+# Bonus
+
+## Visualizing Multivariate Normal Distributions
+
+
+There was also a lot of questions about visualizing multivariate normal distributions. Here's a link to a nice interactive plot that display how changes in the covariance matrix of two variables and how they are correlated impacts the shape of the multivariate normal distribution https://www.econometrics-with-r.org/2-1-random-variables-and-probability-distributions.html. 
