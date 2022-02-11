@@ -1,0 +1,213 @@
+---
+title: "Lab 6"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<style type='text/css'>
+  body{
+  font-size: 14pt;
+  }
+  pre {
+  font-size: 12pt;
+  }
+</style>
+
+```{r call librarys, message=F}
+library(car)
+library(tidyverse)
+```
+
+In today's lab we are going to conduct a one-way ANOVA. First we'll do it by hand, then using a model created with `lm()`, and lastly with the function `aov()`. Note, that `aov()` is a wrapper for `lm()`.
+
+
+## One-way ANOVA
+
+As a quick review, we conduct a one-way ANOVA when we want to compare more than two group means. By comparing the variances of each group, we can circumvent the need for conducting multiple *t*-tests and mitigate the chance of a Type I error from becoming too high. In ANOVA, we compute the ratio of between group variance (i.e. $SS_{treatment}$) divided by the amount of within group variance $SS_{error}$. Then, we compare this ratio (i.e. **F-value**) to what is expected under the null hypothesis.  
+
+To compute $SS_{treatment}$ we sum the squared differences of each group mean from the grand mean:
+
+$$
+\begin{align}
+SS_{treatment} = \sum_{i=1}^{p}\sum_{j=1}^{n_i}(\bar{X}_{i.} - \bar{X}_{..})^2
+\end{align}
+$$
+
+And to compute $SS_{error}$ you sum the squared difference of each individuals score from their respective group means:   
+
+$$
+\begin{align}
+SS_{error} = \sum_{i=1}^{p}\sum_{j=1}^{n_i}(\bar{X}_{ij} - \bar{X}_{i.})^2
+\end{align}
+$$
+
+## By Hand
+
+Lets see this in action by hand. We'll work with the `diet.csv` dataset. As a reminder, this data set contains the following columns:    
+
++ `Person` ID
++ `gender`
++ `Age`
++ `Height`
++ `pre.weight` - weight at the start of the weight loss program
++ `Diet` - type of diet subject was put on
++ `weight6weeks` - weight at the end of the 6 week program
+
+```{r load & process data}
+
+diet.df <- read.csv('diet.csv')
+
+diet.df <- diet.df %>% 
+  rename(final.weight = weight6weeks) %>% # rename weight6weeks column to final.weight
+  mutate(weight.loss = final.weight - pre.weight,
+         Diet = factor(Diet, labels=c('A','B','C')),
+         gender = factor(gender, labels=c('F','M')),
+         Person = factor(Person)) %>% 
+  drop_na() # drop missing data
+
+head(diet.df, 3)
+```
+
+```{r SS by hand, message=F}
+
+grand_mean <- mean(diet.df$weight.loss)
+
+# Extract group mean errors
+groupMean_errors <- diet.df %>% 
+  group_by(Diet) %>% 
+  mutate(error_term = (mean(weight.loss) - grand_mean)^2) %>% 
+  ungroup()
+
+SS_T <- sum(groupMean_errors$error_term)
+
+residuals <- diet.df %>% 
+  group_by(Diet) %>% 
+  summarise(error = weight.loss - mean(weight.loss))
+  
+SS_E <- sum(residuals$error ^ 2)
+
+
+print(paste('SS Treatment: ', SS_T, 'SS Error: ', SS_E))
+```
+Now average these "sums of squares" metrics using the degrees of freedom:
+
+$$
+\begin{align}
+MST = \frac{SST}{p-1} \\
+\\
+MSE = \frac{SSE}{np-p}
+\end{align}
+$$
+where $p$ is the number of groups and $n$ is the number of observations in each group. Note, that $np$ is equal to the total number of observations in the whole dataset. So we can subtract that number from the number of groups we have.
+
+```{r MS by hand}
+
+p <- nlevels(diet.df$Diet)
+total_n <- nrow(diet.df)
+
+treatment_df <- p-1
+residual_df <- total_n-p
+
+MST <- SS_T/treatment_df
+
+MSE <- SS_E/residual_df
+
+```
+
+Next we can compute an F-statistic and compare it to the expected value under the null distribution:
+
+```{r F value }
+
+F.ratio <- MST/MSE
+
+# pf gives us the probability of a value in an F-distribution with specified degrees of freedom
+F.p <- pf(F.ratio,treatment_df,residual_df,lower.tail=F)
+```
+
+
+Now lets put it in our very own ANOVA table: 
+
+```{r Custom ANOVA Table}
+
+customAnova.table <- data.frame(Df=c(treatment_df, residual_df),
+                           'Sum Sq' = c(SS_T, SS_E),
+                           'Mean Sq' = c(MST, MSE),
+                           'F value' = c(F.ratio, NA),
+                           'Pr(>F)' = c(F.p, NA),
+                           row.names = c('Diet','Residuals'))
+round(customAnova.table, 3)
+```
+
+Congrats! You've now conducted an ANOVA by hand. But it was a lot of code and obviously there are much easier ways to do this.
+
+## Using `lm` (i.e. GLM)
+
+Now lets do it using the `lm` function. We'll impose the sum to zero constraint to follow tradition, but this is actually unnecessary:
+
+```{r lm model}
+model.1 <- lm(weight.loss ~ Diet, data=diet.df, contrasts = list(Diet = contr.sum))
+```
+
+Remember, when we multiple the estimated $\beta$ coefficients by the design matrix, we get the means of each group. Here we'll use a toy design matrix with a single individual from each group:   
+
+```{r lm coefs}
+
+betas <- coef(model.1)
+X <- model.matrix(~Diet, expand.grid(Diet=levels(diet.df$Diet)), contrast=list(Diet=contr.sum))
+
+X %*% betas
+```
+Using the estimated coefficients in this fashion is also known as making "predictions". The design matrix can be treated as some new data that the model has never seen. These predictions can be made using the `predict()` function. If no new data is passed in as an input, then the predict function just uses the model's design matrix (i.e., already observed values). So we can use the `predict()` function to get the group means for each of our observations. Note, predictions are formally expressed as: 
+
+$$
+\begin{aligned}
+\hat{y} = X\hat{\beta}
+\end{aligned}
+$$
+where $\hat{y}$ is the predicted value. Lets get those group means and subtract them from the grand mean.
+
+```{r predictions}
+lm.SST <- sum((predict(model.1) - grand_mean)^2)
+
+lm.SST
+SS_T
+```
+As you can see, the computed $SS_{treatment}$ with `lm` is exactly what we got by hand. Next, we need the residual sum of squared error. This is already stored in the model:
+
+```{r lm residuals}
+
+lm.SSE <- sum((model.1$residuals)^2)
+
+lm.SSE
+SS_E
+```
+Remember, the residuals are $\epsilon = y - \hat{y}$, where $\hat{y}$ is the predicted value (i.e. group means).  
+
+To get the full ANOVA table, we would just follow the same steps that we did by hand before.
+
+## Working with `aov()`
+
+
+Now we can use the function `aov()` to derive the ANOVA table. The function uses a similar formula to that which we used for `lm`.   
+
+```{r}
+
+model.2 <- aov(weight.loss ~ Diet, data=diet.df)
+  
+summary(model.2)  
+```
+Boom! Exactly what we calculated by hand and with the `lm` model. Now its your turn! Conduct a One-way ANOVA by hand with the `iris` dataset from the *car* package, comparing the mean `Petal.Length` between each `Species` of iris. 
+
+```{r load iris data}
+data(iris)
+
+head(iris)
+```
+
+
+
+
+
