@@ -26,7 +26,7 @@ In today's lab we are going to conduct a one-way ANOVA. First we'll do it by han
 
 ## One-way ANOVA
 
-As a quick review, we conduct a one-way ANOVA when we want to compare more than two group means. By comparing the variances of each group, we can circumvent the need for conducting multiple *t*-tests and mitigate the chance of a Type I error from becoming too high. In ANOVA, we compute the ratio of between group variance (i.e. $SS_{treatment}$) divided by the amount of within group variance $SS_{error}$. Then, we compare this ratio (i.e. **F-value**) to what is expected under the null hypothesis.  
+As a quick review, we conduct a one-way ANOVA when we want to compare more than two group means. By comparing the variances of each group, we can circumvent the need for conducting multiple *t*-tests and mitigate the chance of a Type I error from becoming too high. In ANOVA, we compute the ratio of between group variance (i.e. $SS_{treatment}$) divided by the amount of within group variance $SS_{error}$. Then, we compare this ratio (i.e. **F-value**) to what is expected under the null hypothesis. 
 
 To compute $SS_{treatment}$ we sum the squared differences of each group mean from the grand mean:
 
@@ -71,6 +71,22 @@ diet.df <- diet.df %>%
 head(diet.df, 3)
 ```
 
+The following assumptions must be met when conducting an ANOVA:
+
++ Dependent variable is normally distributed
++ Population variance in each group is equal (i.e. Homogeneity of Variances)
++ Observations are independent
+
+Homogeneity of variance can be evaluated using a Levene's Test, which test the null hypothesis that the variance within each group is equal.
+
+```{r Levenes Test}
+leveneTest(weight.loss ~ Diet, data=diet.df)
+```
+
+A nonsignificant *F* statistic indicates that we fail to reject the null, implying that variance is equal across diet groups.   
+
+Now lets compute the sum of squared error terms by hand: 
+
 ```{r SS by hand, message=F}
 
 grand_mean <- mean(diet.df$weight.loss)
@@ -92,7 +108,8 @@ SS_E <- sum(residuals$error ^ 2)
 
 print(paste('SS Treatment: ', SS_T, 'SS Error: ', SS_E))
 ```
-Now average these "sums of squares" metrics using the degrees of freedom:
+
+Now average these sum of squared error terms metrics using the degrees of freedom:
 
 $$
 \begin{align}

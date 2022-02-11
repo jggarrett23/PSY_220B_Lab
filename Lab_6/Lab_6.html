@@ -222,6 +222,20 @@ head(diet.df, 3)</code></pre>
 ## 1      1      F  22    159         58    A         54.2        -3.8
 ## 2      2      F  46    192         60    A         54.0        -6.0
 ## 3      3      F  55    170         64    A         63.3        -0.7</code></pre>
+<p>The following assumptions must be met when conducting an ANOVA:</p>
+<ul>
+<li>Dependent variable is normally distributed</li>
+<li>Population variance in each group is equal (i.e. Homogeneity of Variances)</li>
+<li>Observations are independent</li>
+</ul>
+<p>Homogeneity of variance can be evaluated using a Levene’s Test, which test the null hypothesis that the variance within each group is equal.</p>
+<pre class="r"><code>leveneTest(weight.loss ~ Diet, data=diet.df)</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value Pr(&gt;F)
+## group  2  0.4629 0.6313
+##       73</code></pre>
+<p>A nonsignificant <em>F</em> statistic indicates that we fail to reject the null, implying that variance is equal across diet groups.</p>
+<p>Now lets compute the sum of squared error terms by hand:</p>
 <pre class="r"><code>grand_mean &lt;- mean(diet.df$weight.loss)
 
 # Extract group mean errors
@@ -241,7 +255,7 @@ SS_E &lt;- sum(residuals$error ^ 2)
 
 print(paste(&#39;SS Treatment: &#39;, SS_T, &#39;SS Error: &#39;, SS_E))</code></pre>
 <pre><code>## [1] &quot;SS Treatment:  60.5270083820662 SS Error:  410.401807407407&quot;</code></pre>
-<p>Now average these “sums of squares” metrics using the degrees of freedom:</p>
+<p>Now average these sum of squared error terms metrics using the degrees of freedom:</p>
 <p><span class="math display">\[
 \begin{align}
 MST = \frac{SST}{p-1} \\
