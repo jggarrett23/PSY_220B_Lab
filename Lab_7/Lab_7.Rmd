@@ -1,0 +1,107 @@
+---
+title: "Lab 7"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+<style type='text/css'>
+  body{
+  font-size: 14pt;
+  }
+  pre {
+  font-size: 12pt;
+  }
+</style>
+
+```{r call librarys, message=F}
+library(car)
+library(tidyverse)
+library(ggplot2)
+```
+
+So far we have covered exploratory data analysis (EDA), working with the general linear model (GLM), and how to use it to performan an analysis of variance (ANOVA). In today's lab, we will focus on using R to conduct *post-hoc* testing. 
+
+# Post-Hoc Comparisons
+
+First, we'll load this lab's data file `car_interest_rates.csv`.
+
+```{r load data}
+
+interest.df <- read.csv('car_interest_rates.csv')
+
+interest.df <- interest.df %>% 
+  mutate(car = factor(car, labels=c('Honda','BMW','Range Rover', 'Chevy', 'Toyota', 'Porsche')))
+
+head(interest.df)
+```
+
+As you can see, the data set contains the following information:
+
++ interest: car interest rate
++ car: type of car (Honda, BMW, Range Rover, Chevy, Toyota, Porsche)
+
+What we want to know is if there is a difference in the interest rates between each type of car.
+
+Now, we won't go through the entire EDA process and check that the ANOVA assumptions are met for the sake of time (**which is encouraged and required in practice**). 
+
+```{r anova}
+model <- aov(interest ~ car, interest.df)
+
+summary(model)
+```
+The One-way ANOVA indicates that the is a significant difference between the average interest rates of each car. Time for post-hoc comparisons to find out where.  
+
+There are multiple packages that can be used to perform post-hoc pairwise comparisons (e.g., `pairwise.t.test`, `multcomp`, etc). The one that I prefer to use is `emmeans`, but for no special reason.
+
+```{r message=F}
+
+#install.packages('emmeans')
+library(emmeans)
+```
+
+
+We can call the function `emmeans()` from the package to perform the comparisons. The function takes the model as an input, and the factor(s) that we are comparing. Next, we'll call the function `pairs()` to output the comparisons.
+```{r Post-hocs}
+
+marginal.means <- emmeans(model, 'car')
+
+post_hocs <- pairs(marginal.means)
+
+summary(post_hocs)
+```
+
+You'll also notice that the `pairs()` function automatically corrects the *p*-value for multiple comparisons with the Tukey method. If we wanted to be more conservative, we could specify a Bonferonni correction: 
+
+```{r Bonferonni}
+summary(post_hocs, adjust='bon')
+```
+
+Remember the contrasts that we discussed in lecture (i.e., $\underline{v}'\underline{\hat{\beta}}$)? We can actually look at how emmeans codes these contrasts:
+
+```{r contrast vectors}
+
+coef(post_hocs)
+
+```
+Look at the columns in the data frame above. Notice how they all sum to zero, which is one of the constraints that must be met for a comparison to be a contrast.   
+
+
+We can also plot the means of each group using the `marginal.means` variable:
+
+```{r marginals plot}
+
+plot(marginal.means)
+
+```
+Lastly, `emmeans` also allows you to easily compute the effect sizes of your post-hoc comparisons with the `eff_size()` function. Note, the function requires you to provide an emmeans object (i.e., the variable `marginal.means`), the estimated population standard deviation (e.g., `sigma(model)`), and the estimate's degrees of freedom (i.e., df of the `Residuals` term in the ANOVA summary table). 
+
+```{r Effect Size}
+
+eff_size(marginal.means, sigma=sigma(model), edf=48)
+
+```
+
+Now you are fully equipped to run a One-way ANOVA in R!
+
