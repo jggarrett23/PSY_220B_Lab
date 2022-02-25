@@ -1,0 +1,193 @@
+---
+title: "Lab 8"
+author: "Jordan Garrett"
+date: "2/24/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+<style type='text/css'>
+  body{
+  font-size: 14pt;
+  }
+  pre {
+  font-size: 12pt;
+  }
+</style>
+
+```{r call librarys, message=F}
+library(car)
+library(tidyverse)
+library(ggplot2)
+library(MASS)
+library(emmeans)
+```
+
+This lab will cover running a *two-way* ANOVA in R. For our analysis, we will work with the `crabs` data set from the **MASS** library. The data set describes 5 morphological measurements on 50 crabs of the species **Leptograpsus variegatus** collected at Fremantle, W. Australia. It contains the following information on each crab:
+
++ `sp`: species (blue or orange)
++ `sex`
++ `index`: index of crab in one of four groups (1-50)
++ `FL`: frontal lobe size (mm)
++ `RW`: rear width (mm)
++ `CL`: carapace length (mm)
++ `CW`: carapace width (mm)
++ `BD`: body depth (mm)
+
+```{r load data}
+crab_df <- crabs
+
+head(crab_df)
+```
+
+In our analysis, we want to determine if the average size of a crab's frontal lobe varies as a function of its `sex` and `species`.
+
+# Two-way ANOVA
+
+## Fixed Effects Model
+
+Since we haven't covered random effects models and how to interpret them in too much detail yet, we will just focus on fixed effects models. As a reminder a two way fixed effects model takes the form:
+
+$$
+Y_{ijk} = \mu + \alpha_i + \beta_j + \epsilon_{ijk}
+$$
+
+and we assume:
+
+$$
+\sum_{i=1}^{p} \alpha_i = 0 \textrm{ and  } \sum_{j=1}^{1} \beta_j = 0
+$$
+Lets run this model using the `aov()` function we worked with when running a one-way anova. The syntax is the same, except we just add in the second factor.
+
+```{r fixed effects w/o interaction}
+
+# specify sum-to-zero
+options(contrasts = c("contr.sum", "contr.poly"))
+
+fixed_model.noInteract <- aov(FL ~ sp + sex, data=crab_df)
+
+summary(fixed_model.noInteract)
+```
+The model results indicates that there is a significant main effect of `species`, or that including the factor species explained a significant amount of variation in frontal lobe size across crabs.  
+
+Lets visualize what this relationship looks like. First, we'll extract the group means for each level of `species` and `sex`.
+
+```{r extract means}
+sex_means <- crab_df %>% 
+  group_by(sex) %>% 
+  summarise(mu=mean(FL),
+            mu_se = sd(FL)/sqrt(n()))
+
+sp_means <- crab_df %>% 
+  group_by(sp) %>% 
+  summarise(mu=mean(FL),
+            mu_se = sd(FL)/sqrt(n()))
+```
+
+Now we'll plot the results for `species`:
+
+```{r plot species}
+ggplot(sp_means, aes(x=sp, y=mu)) + 
+  geom_errorbar(aes(ymin=mu-mu_se, ymax=mu+mu_se), width=.2) + 
+  geom_point(size=3, fill='green', color = 'black', shape=21) + 
+  labs(y='Frontal Lobe Size (mm)', x='Species') + 
+  theme_minimal()
+```
+
+And do the same for sex:
+
+```{r plot sex}
+ggplot(sex_means, aes(x=sex, y=mu)) + 
+  geom_errorbar(aes(ymin=mu-mu_se, ymax=mu+mu_se), width=.2) + 
+  geom_point(size=3, fill='pink', color = 'black', shape=21) + 
+  labs(y='Frontal Lobe Size (mm)', x='Species') + 
+  theme_minimal()
+```
+
+Both plots corroborate the model results. Now say we believed that there was an interaction between these two factors. Then, we could include an interaction term using the syntax `+ sp:sex`. Note, the entire model could also be specified with the formula `FL ~ sp*sex`.
+
+```{r fixed effects w/ interaction}
+fixed_model.interact <- aov(FL ~ sp + sex + sp:sex, data=crab_df)
+
+# The below line of code will give you the same model as above
+# fixed_model.interact <- aov(FL ~ sp*sex, data=crab_df)
+
+summary(fixed_model.interact)
+```
+Looks like there is a significant interaction between species and sex. Lets extract the means for each combination of these two factors and visualize their relationships:
+
+```{r extract interaction means}
+sex_sp_means <- crab_df %>% 
+  group_by(sp,sex) %>% 
+  summarise(mu = mean(FL),
+            mu_se = sd(FL)/sqrt(n()))
+```
+
+```{r plot interaction model results}
+ggplot(sex_sp_means, aes(x=sp, y=mu, color=sex)) + 
+  geom_errorbar(aes(ymin=mu-mu_se,ymax=mu+mu_se), 
+                show.legend=F, width=.1, color='black') + 
+  geom_point(size=2) + 
+  geom_line(aes(group=sex), show.legend = F, size=1.2) + 
+  labs(y='Frontal Lobe Size (mm)', x='Species', color='Sex') + 
+  theme_minimal()
+```
+
+The plot indicates that we have a clear cross over interaction. But there is a problem. We also have a significant main effect of `species`. Its difficult to interpret this main effect since it could be completely driven by the interaction. Thus, we need to look at simple main effects instead.
+
+### Simple Main Effects
+
+Looking at simple main effects is similar to running a one-way anova for each level of a factor, while holding the second factor constant. To do this, we need to divide our data along each level of a treatment variable. The function `subset()` will enable us to perform this division. 
+
+```{r subset data}
+species.B <- subset(crab_df, sp == 'B')
+species.O <- subset(crab_df, sp == 'O')
+
+sex.F <- subset(crab_df, sex == 'F')
+sex.M <- subset(crab_df, sex == 'M')
+```
+
+Now run a one-way ANOVA with `sex` as a factor on each level of `species`:
+
+```{r species B anova}
+summary(aov(FL ~ sex, data=species.B))
+```
+
+```{r species O anova}
+summary(aov(FL ~ sex, data=species.O))
+```
+
+Do the same for each level of `sex` with `species` as a factor in the model:
+
+```{r sex F anova}
+summary(aov(FL ~ sp, data=sex.F))
+```
+
+```{r sex M anova}
+summary(aov(FL ~ sp, data=sex.M))
+```
+
+All together, it appears as though there is a significant difference in frontal lobe size between male and female crabs of the blue species, but not the orange species. Additionally, frontal lobe size differs between species regardless of their sex. 
+
+# Try it yourself
+
+Work with the data set `ToothGrowth`, which you can load in using the following command: 
+
+```{r tooth data}
+tooth_df <- ToothGrowth
+
+head(tooth_df)
+```
+
+The data set contains info from a study evaluating the effect of vitamin C on tooth growth in Guinea pigs. The experiment has been performed on 60 pigs, where each animal received one of three dose levels of vitamin C (0.5, 1, and 2 mg/day) by one of two delivery methods, (orange juice or ascorbic acid (a form of vitamin C and coded as VC).   
+
+Perform the following:
+
+1. Preprocess the data.
+2. Explore the data and generate descriptive statistics.
+3. Check that all of the ANOVA assumptions are met. 
+4. Conduct a two-way ANOVA. If there is a significant interaction, analyze the simple main effects. 
+5. Plot the results. 
+6. Interpret your findings.
