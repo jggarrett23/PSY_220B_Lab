@@ -1,0 +1,211 @@
+---
+title: "Lab 8"
+author: "Jordan Garrett"
+date: "2/24/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+<style type='text/css'>
+  body{
+  font-size: 14pt;
+  }
+  pre {
+  font-size: 12pt;
+  }
+</style>
+
+```{r call librarys, message=F}
+library(car)
+library(tidyverse)
+library(ggplot2)
+library(emmeans)
+
+if(!require(ez)) install.packages('ez')
+```
+
+Before we get into today's lab, I wanted to share a link that might be hopeful for some to visualize ANOVA main effects and interactions, and how they relate to the GLM. The following website has a nice interactive visualization https://shiny.psy.gla.ac.uk/Dale/factorial2/.   
+
+Okay so today we are going to take a look at random effects and mixed effects models.    
+
+# Random Effects Model
+
+As stated in lecture, in a random effects model your factors are believed to be drawn from an underlying distribution of all possible levels of that factor (e.g., recording measurements from 3 forests in Maine out of all possible forests). Because they are modeled as being drawn from a distribution, random effects are said to be *exchangable*. This gives random effects models the added benefit of greater generalization compared to fixed effects models.  
+
+For our random effects analysis, we'll use an online personality dataset:
+
+```{r load personality data}
+datafilename <- "http://personality-project.org/r/datasets/R.appendix4.data"
+person.df <- read.table(datafilename,header=T)
+
+person.df <- person.df %>% 
+  mutate(Subject=factor(Subject),
+         Task=factor(Task),
+         Valence=factor(Valence))
+
+
+head(person.df)
+```
+As you can see, the data set contains columns for `Task`, `Valence`, `Observation`, `Recall` score, and `Subject` name. The goal of this random effects analysis is to look for differences in `Recall` as a function of `Task` and `Valence`.
+
+## By Hand
+
+First we'll conduct the analysis by hands as shown on the slides from lecture. Remember that the formulas are the same as when deriving the table for the fixed effects, but what changes is calculating the *F* ratios. 
+
+$$
+SS_A = nq\sum_{i=1}^p(\bar{Y}_{i..} - \bar{Y}_{...})^2 \\
+SS_B = np\sum_{j=1}^q(\bar{Y}_{.j.} - \bar{Y}_{...})^2 \\
+SS_{AB} = n\sum_{i=1}^p\sum_{j=1}^q(\bar{Y}_{ij.}-\bar{Y}_{i..}-\bar{Y}_{.j.}+\bar{Y}_{...})^2 \\
+SS_{E} = \sum_{i=1}^p\sum_{j=1}^q\sum_{k=1}^{n}(Y_{ijk}-\bar{Y}_{...})^2
+$$
+
+```{r SS by hand}
+grand_mean <- mean(person.df$Recall)
+
+SS_A <- person.df %>% 
+  group_by(Task) %>% 
+  mutate(diff = (mean(Recall)-grand_mean)^2) %>% 
+  ungroup() %>% 
+  select(diff) %>% 
+  sum()
+
+SS_B <- person.df %>% 
+  group_by(Valence) %>% 
+  mutate(diff = (mean(Recall)-grand_mean)^2) %>% 
+  ungroup() %>% 
+  select(diff) %>% 
+  sum()
+
+SS_E <- person.df %>% 
+  group_by(Task,Valence) %>% 
+  mutate(diff = (Recall - mean(Recall))^2) %>% 
+  ungroup() %>% 
+  select(diff) %>% 
+  sum()
+
+SS_AB <- person.df %>% 
+  group_by(Task) %>% 
+  mutate(Task_mu = mean(Recall)) %>% 
+  ungroup() %>% 
+  group_by(Valence) %>% 
+  mutate(Valence_mu = mean(Recall)) %>% 
+  ungroup() %>% 
+  group_by(Task,Valence) %>% 
+  mutate(diff = (mean(Recall) - Task_mu - Valence_mu + grand_mean)^2) %>% 
+  ungroup() %>% 
+  select(diff) %>% 
+  sum()
+```
+
+To calculate the MS terms, we divide by the degrees of freedom. Then isolate the variance for the source of interest by normalizing the source MS term, thereby producing the corresponding *F* ratio:
+
+$$
+MS_{A} = \frac{SS_A}{p-1} \hspace{.5cm} F_A = \frac{MS_A}{MS_{AB}} \\
+MS_{B} = \frac{SS_B}{q-1} \hspace{.5cm} F_B = \frac{MS_B}{MS_{AB}} \\
+MS_{AB} = \frac{SS_{AB}}{(p-1)(q-1)} \hspace{.5cm} F_{AB} = \frac{MS_AB}{MS_E}\\
+MS_{E} = \frac{SS_E}{pq(n-1)}
+$$
+
+```{r MS by Hand}
+
+p <- nlevels(person.df$Task)
+q <- nlevels(person.df$Valence)
+n <- person.df %>% 
+  group_by(Valence,Task) %>% 
+  count() %>% 
+  ungroup() %>% 
+  select(n) %>% 
+  unique()
+
+n <- as.numeric(n)
+
+MS_A <- SS_A/(p - 1)
+MS_B <- SS_B/(q - 1)
+MS_AB <- SS_AB/((p - 1)*(q - 1))
+MS_E <- SS_E/(p*q*(n-1))
+```
+
+```{r custom anova table}
+custom.anovaTable <- data.frame(source=c('Task','Valence','Task:Valence','Error'),
+                                SS=round(c(SS_A,SS_B,SS_AB,SS_E),2),
+                                df=c(p-1,q-1,(p-1)*(q-1),p*q*(n-1)),
+                                MS=round(c(MS_A,MS_B,MS_AB,MS_E),2),
+                                F.val=round(c(MS_A/MS_AB,MS_B/MS_AB,MS_AB/MS_E,NA),2))
+
+custom.anovaTable
+```
+
+
+## Using aov
+
+Like before, we can check out work using the `aov()` function. In order to specify that an effect is random, we use the command `Error()` wrapped around our factors. 
+
+```{r}
+random.model <- aov(Recall ~ Error(Task*Valence), data=person.df)
+
+summary(random.model)
+```
+
+Looks as though our derived estimates by hand match with the terms produced by `aov`. You'll notice though that there is not *F* statistics. `aov` is limited in its ability to hand random effects, so it is recommended to use the function `lmer()` from the `lme4` package or `lme()` from the `nlme` package. I won't go into too much detail on working with these because they are much more complicated and the way in which you use ANOVA is different from how we discuss it in this course (i.e., ANOVA is used for model comparison). 
+
+# Mixed Effects Model
+
+Let's move on to mixed effects models, which are much more common in research designs, especially now that scientists want to maximize statistical power in a cost effective way. Repeated measures designs are great for achieving this. 
+
+## One-way repeated measures
+
+The next data set contains the following information:
+
++ patient
++ drug
++ response to drug
+
+```{r}
+drug.df <- data.frame(patient=rep(1:5, each=4),
+                 drug=rep(1:4, times=5),
+                 response=c(30, 28, 16, 34,
+                            14, 18, 10, 22,
+                            24, 20, 18, 30,
+                            38, 34, 20, 44,
+                            26, 28, 14, 30))
+
+drug.df <- drug.df %>%
+  mutate(patient = factor(patient),
+         drug = factor(drug),
+         id=patient)
+
+head(drug.df)
+```
+
+For this data set we will use the `ezANOVA()` function from the package `ez`. This function has the benefit of also testing the sphericity assumption and providing effect sizes.  
+
+When working with this function, you need to specify the dependent variable (dv), a unique identifier for each within subject observation (wid), and the factor varying within subjects (within). In our case, the column `patient` has a unique ID for each individual, while the factor `drug` is given to each patient. 
+
+```{r message=F}
+drug.ez <- ezANOVA(drug.df, dv=response, wid=patient, within=drug, type=3)
+
+drug.ez$ANOVA
+```
+The analysis indicates that there is a main effect of drug, or that there is a difference in effectiveness amongst the tested drugs.  
+
+Next lets look at sphericity. If this test is significant, then sphericity is likely not met and we should be cautious of the estimated **F** ratio.
+
+```{r}
+drug.ez$`Mauchly's Test for Sphericity`
+```
+
+Luckily sphericity was non-significant. In the event that it was significant, we could apply either the *Greenhouse-Giesser* (`GG`) correction, or the *Huynh-Feld* (`HF`) correction.
+
+```{r}
+drug.ez$`Sphericity Corrections`
+```
+
+Now lets apply our knowledge to another data set.
+
+```{r}
+student.df <- readRDS('Student_Calories.rds')
+```
+
+How would you go about analyzing this data?
