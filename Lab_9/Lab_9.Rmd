@@ -104,7 +104,7 @@ To calculate the MS terms, we divide by the degrees of freedom. Then isolate the
 $$
 MS_{A} = \frac{SS_A}{p-1} \hspace{.5cm} F_A = \frac{MS_A}{MS_{AB}} \\
 MS_{B} = \frac{SS_B}{q-1} \hspace{.5cm} F_B = \frac{MS_B}{MS_{AB}} \\
-MS_{AB} = \frac{SS_{AB}}{(p-1)(q-1)} \hspace{.5cm} F_{AB} = \frac{MS_AB}{MS_E}\\
+MS_{AB} = \frac{SS_{AB}}{(p-1)(q-1)} \hspace{.5cm} F_{AB} = \frac{MS_{AB}}{MS_E}\\
 MS_{E} = \frac{SS_E}{pq(n-1)}
 $$
 
@@ -136,7 +136,6 @@ custom.anovaTable <- data.frame(source=c('Task','Valence','Task:Valence','Error'
 
 custom.anovaTable
 ```
-
 
 ## Using aov
 
@@ -190,7 +189,7 @@ drug.ez$ANOVA
 ```
 The analysis indicates that there is a main effect of drug, or that there is a difference in effectiveness amongst the tested drugs.  
 
-Next lets look at sphericity. If this test is significant, then sphericity is likely not met and we should be cautious of the estimated **F** ratio.
+Next lets look at sphericity. If this test is significant, then sphericity is likely not met and we should be cautious of the estimated *F* ratio.
 
 ```{r}
 drug.ez$`Mauchly's Test for Sphericity`

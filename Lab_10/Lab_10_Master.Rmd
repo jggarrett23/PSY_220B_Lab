@@ -1,0 +1,197 @@
+---
+title: "Lab 10"
+date: "3/11/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+<style type='text/css'>
+  body{
+  font-size: 14pt;
+  }
+  pre {
+  font-size: 12pt;
+  }
+</style>
+
+```{r call libraries, message=F}
+library(car)
+library(tidyverse)
+library(ggplot2)
+library(ez)
+library(lme4)
+library(emmeans)
+library(MASS)
+if(!require(nlme)) install.packages('nlme')
+if(!require(bruceR)) install.packages('bruceR')
+```
+
+# Analyze Student Calories dataset
+
+Students were asked to document their daily caloric intake once a month for six months.  Students were divided into three groups with each receiving instruction in nutrition education using one of three curricula.  
+
+Goal: To test for differences in the calories per day between cirricula. 
+
+
+Read in data:
+```{r read in student data}
+
+student.df <- readRDS('Student_Calories.rds')
+
+head(student.df)
+```
+
+```{r convert factors}
+
+student.df <- student.df %>% 
+  mutate(Instruction=factor(Instruction),
+         Student=factor(Student),
+         Month=factor(Month))
+```
+
+
+```{r descriptives statistics}
+
+summary(student.df)
+
+```
+
+```{r density plot}
+ggplot(student.df, aes(x=Calories.per.day)) + 
+  geom_density(fill='blue', color='black', alpha=0.3) +
+  labs(x='Calories Per Day', y='Density', title='Student Calories Per Day') + 
+  theme_classic() + 
+  theme(plot.title=element_text(hjust=0.5, size=14))
+```
+```{r test normality}
+shapiro.test(student.df$Calories.per.day)
+```
+
+```{r two way repeated measures anova}
+
+student.model <- MANOVA(student.df, subID='Student', dv=c('Calories.per.day'),
+                        between=c('Instruction'), with='Month')
+```
+```{r}
+student.model.2 <- MANOVA(student.df, subID='Student', dv=c('Calories.per.day'),
+                        between=c('Instruction'), with='Month', sph.correction='GG')
+```
+
+```{r extract means}
+month_instruction_means <- student.df %>% 
+  group_by(Month, Instruction) %>% 
+  summarize(mu = mean(Calories.per.day),
+            mu_se = sd(Calories.per.day)/n())
+```
+
+```{r plot interaction}
+ggplot(month_instruction_means, aes(x=Month, y=mu, color=Instruction)) + 
+  geom_errorbar(aes(ymin=mu-mu_se, ymax=mu+mu_se), show.legend=F, width=.1, color='black') +   geom_point(size=2) + 
+  geom_line(aes(group=Instruction), show.legend=F, size=1.2) + 
+  labs(y='Average Calories Per Day') + 
+  theme_minimal()
+```
+
+```{r simple effects}
+month.1 <- subset(student.df, Month=='1')
+month.2 <- subset(student.df, Month=='2')
+month.3 <- subset(student.df, Month=='3')
+month.4 <- subset(student.df, Month=='4')
+month.5 <- subset(student.df, Month=='5')
+month.6 <- subset(student.df, Month=='6')
+
+instruction.A <- subset(student.df, Instruction=='Curriculum A')
+instruction.B <- subset(student.df, Instruction=='Curriculum B')
+instruction.C <- subset(student.df, Instruction=='Curriculum C')
+```
+
+
+```{r one-way repeated anovas, message=F}
+ezANOVA(month.1, dv=Calories.per.day, wid=Student, between=Instruction)$ANOVA
+ezANOVA(month.2, dv=Calories.per.day, wid=Student, between=Instruction)$ANOVA
+ezANOVA(month.3, dv=Calories.per.day, wid=Student, between=Instruction)$ANOVA
+ezANOVA(month.4, dv=Calories.per.day, wid=Student, between=Instruction)$ANOVA
+ezANOVA(month.5, dv=Calories.per.day, wid=Student, between=Instruction)$ANOVA
+ezANOVA(month.6, dv=Calories.per.day, wid=Student, between=Instruction)$ANOVA
+```
+
+```{r instruction simple effects, message=F}
+ezANOVA(instruction.A, dv=Calories.per.day, wid=Student, within=Month)$ANOVA
+
+ezANOVA(instruction.B, dv=Calories.per.day, wid=Student, within=Month)$ANOVA
+
+ezANOVA(instruction.C, dv=Calories.per.day, wid=Student, within=Month)$ANOVA
+```
+
+```{r simple contrasts}
+student.margins <- emmeans(student.model.2, ~Instruction*Month)
+
+pairs(student.margins, simple='each', adjust='tuk')
+```
+
+
+# Analyze Machines data
+
+A company wanted to replace the machines used to make a certain component. Three different brands of machines were available, so the investigators designed an experiment to evaluate the productivity of the machines when operated by the company's own personnel. 6 `workers` participated in the experiment, each of whom was to operate each machine 3 different times. The response is an overall productivity `score`.   
+Goal: to investigate effects of `machine` and `worker` on the score. There are two factors: `machine` and `worker`.  
+
+`Machines` dataset is from the `nlme` package.
+
+Read in data:
+
+```{r read in Machines data}
+machine.df <- Machines
+head(machine.df)
+```
+
+```{r}
+summary(machine.df)
+```
+```{r}
+ggplot(machine.df, aes(x=score)) + 
+  geom_density(fill='green', alpha=0.3) + 
+  labs(x='Productivity Score', y='Density', title='Worker Productivity Scores') + 
+  theme_classic() + 
+  theme(plot.title=element_text(hjust=0.5, size=14))
+```
+
+```{r}
+shapiro.test(machine.df$score)
+```
+
+```{r}
+machine.model <- MANOVA(machine.df, subID='Worker', dv='score', with='Machine')
+```
+
+```{r}
+machine_means <- as.data.frame(machine.margins)
+
+colnames(machine_means) <- c('Machine','mu','SE','df','lower.CL','upper.CL')
+```
+
+```{r}
+ggplot(machine_means, aes(x=Machine, y=mu)) + 
+  geom_errorbar(aes(ymin=mu-SE, ymax=mu+SE), show.legend=F, width=.1, color='black') +   geom_point(size=3, color='green') + 
+  labs(y='Average Productivity Score') + 
+  theme_minimal()
+```
+```{r}
+machine.margins <- emmeans(machine.model, ~ Machine)
+
+pairs(machine.margins, adjust='tuk')
+```
+
+# Analyze Michelson data 
+
+Dataset contains measurements of the speed of light in air, made between June 5th and July 2nd, 1879. It consists of 5 experiments (`Expt`) each consisting of 20 consecutive `runs`. The response is the `speed` of light in km/s, less 299000. THe currently accepted value, on this scale of measurement, is 734.5.
+
+```{r read in Michelson data}
+michelson.df <- michelson
+head(michelson.df)
+```
+
+
+
+

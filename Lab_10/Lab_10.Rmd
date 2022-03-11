@@ -1,0 +1,66 @@
+---
+title: "Lab 10"
+date: "3/11/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+<style type='text/css'>
+  body{
+  font-size: 14pt;
+  }
+  pre {
+  font-size: 12pt;
+  }
+</style>
+
+```{r call libraries, message=F}
+library(car)
+library(tidyverse)
+library(ggplot2)
+library(ez)
+
+library(MASS)
+if(!require(nlme)) install.packages("nlme")
+```
+
+# Analyze Student Calories dataset
+
+Students were asked to document their daily caloric intake once a month for six months.  Students were divided into three groups with each receiving instruction in nutrition education using one of three curricula.  
+
+Goal: To test for differences in the calories per day between cirricula. 
+
+
+Read in data:
+```{r read in student data}
+
+student.df <- readRDS('Student_Calories.rds')
+
+head(student.df)
+```
+
+# Analyze Machines data
+
+A company wanted to replace the machines used to make a certain component. Three different brands of machines were available, so the investigators designed an experiment to evaluate the productivity of the machines when operated by the company’s own personnel. 6 `workers` participated in the experiment, each of whom was to operate each machine 3 different times. The response is an overall productivity `score`.   
+Goal: to investigate effects of `machine` and `worker` on the score. There are two factors: `machine` and `worker`.  
+
+`Machines` dataset is from the `nlme` package.
+
+Read in data:
+
+```{r read in Machines data}
+machine.df <- Machines
+head(machine.df)
+```
+# Analyze Michelson data 
+
+```{r read in Michelson data}
+michelson.df <- michelson
+head(michelson.df)
+```
+
+
+
+

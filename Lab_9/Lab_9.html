@@ -257,7 +257,7 @@ SS_AB &lt;- person.df %&gt;%
 <p><span class="math display">\[
 MS_{A} = \frac{SS_A}{p-1} \hspace{.5cm} F_A = \frac{MS_A}{MS_{AB}} \\
 MS_{B} = \frac{SS_B}{q-1} \hspace{.5cm} F_B = \frac{MS_B}{MS_{AB}} \\
-MS_{AB} = \frac{SS_{AB}}{(p-1)(q-1)} \hspace{.5cm} F_{AB} = \frac{MS_AB}{MS_E}\\
+MS_{AB} = \frac{SS_{AB}}{(p-1)(q-1)} \hspace{.5cm} F_{AB} = \frac{MS_{AB}}{MS_E}\\
 MS_{E} = \frac{SS_E}{pq(n-1)}
 \]</span></p>
 <pre class="r"><code>p &lt;- nlevels(person.df$Task)
@@ -353,7 +353,7 @@ drug.ez$ANOVA</code></pre>
 <pre><code>##   Effect DFn DFd        F            p p&lt;.05       ges
 ## 2   drug   3  12 24.75887 1.992501e-05     * 0.4680252</code></pre>
 <p>The analysis indicates that there is a main effect of drug, or that there is a difference in effectiveness amongst the tested drugs.</p>
-<p>Next lets look at sphericity. If this test is significant, then sphericity is likely not met and we should be cautious of the estimated <strong>F</strong> ratio.</p>
+<p>Next lets look at sphericity. If this test is significant, then sphericity is likely not met and we should be cautious of the estimated <em>F</em> ratio.</p>
 <pre class="r"><code>drug.ez$`Mauchly&#39;s Test for Sphericity`</code></pre>
 <pre><code>##   Effect         W         p p&lt;.05
 ## 2   drug 0.1864953 0.4957455</code></pre>
